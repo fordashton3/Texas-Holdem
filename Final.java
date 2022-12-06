@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Final {
-	public static void main(String[] args) {
+	public static void main(String[] args) { // This is a test message
 		welcome();
 		Card[] deck = new Card[52];
 		Profile[] possiblePlayers;
