@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Final {
@@ -11,7 +10,6 @@ public class Final {
 		int numStored;
 		//TODO - Implement edwards code "runMenu() - is start
 		initDeck(deck);
-		//runGame();
 		File playerData = new File("player data.txt");
 		try {
 			checkFile(playerData);
@@ -150,7 +148,7 @@ public class Final {
 				String line = readerNew.nextLine();
 				String[] data = line.split(",");
 				players = new Profile[counter];
-				players[i] = new Profile(data[i], Integer.parseInt(data[i + 1]), Integer.parseInt(data[i + 2]), Integer.parseInt(data[i + 3]));
+				//players[i] = new Profile(data[i], Integer.parseInt(data[i + 1]), Integer.parseInt(data[i + 2]), Integer.parseInt(data[i + 3]));
 				System.out.println(players[i].toString());
 			}
 
@@ -170,8 +168,25 @@ public class Final {
 		}
 	}
 
+	public static void runMenu(Profile[] players) {
+		int menuInput = 0;
+		System.out.printf("1. Start game%n2. Quit to Desktop%n");
+		try (Scanner input = new Scanner(System.in)){
+			menuInput = input.nextInt();
+			if (menuInput == 1) {
+				getUserQuantity(input, players);
+			} else if (menuInput == 2) {
+				input.close();
+				System.exit(1);
+			} else{
+				throw new Exception("Invalid input");
+			}
+		} catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+	}
 
-	public static void getUserQuantity(Scanner input) {
+	public static void getUserQuantity(Scanner input, Profile[] players) {
 		System.out.println("How many players are sitting in? (1-6)");
 		int playerCount = 0;
 		try {
@@ -183,41 +198,25 @@ public class Final {
 		} catch (Exception e){
 			System.out.println(e.getMessage());
 		}
-		runUserSetup(input, playerCount);
+		runUserSetup(input, playerCount, players);
 	}
 
-	public static void runUserSetup(Scanner input, int playerCount){
+	public static void runUserSetup(Scanner input, int playerCount, Profile[] players){
 		for(int i = 0; i < playerCount; i++) {
 			int menuInput = 0;
 			System.out.printf("Player %d:%n%n1. Login%n2. New Player%n3. Return to Menu%n", i+1);
 			menuInput = input.nextInt();
 			if (menuInput == 1) {
-				runLogin(input);
+				choosePlayer(input);
 			} else if (menuInput == 2) {
-				runNewPlayer(input);
+				runNewPlayer(input, players);
 			} else if (menuInput == 3) {
-				runMenu();
+				runMenu(players);
 			}
 		}
 	}
-	public static void runMenu() {
-		int menuInput = 0;
-		System.out.printf("1. Start game%n2. Quit to Desktop%n");
-		try (Scanner input = new Scanner(System.in)){
-			menuInput = input.nextInt();
-			if (menuInput == 1) {
-				getUserQuantity(input);
-			} else if (menuInput == 2) {
-				input.close();
-				System.exit(1);
-			} else{
-				throw new Exception("Invalid input");
-			}
-		} catch(Exception e){
-			System.out.println(e.getMessage());
-		}
-	}
-	public static void runLogin(Scanner input) {
+
+	public static void choosePlayer(Scanner input) {
 		File user;
 		for(int i = 0; i < 1; i++){
 			try {
@@ -234,13 +233,20 @@ public class Final {
 			user = new File("");
 		}
 	}
-	public static void runNewPlayer(Scanner input){
+
+	public static void runNewPlayer(Scanner input, Profile[] players){
 		int userInput = 0;
 		System.out.printf("1. New user%n2. Sit as guest");
 		try {
 			userInput = input.nextInt();
 			if (userInput == 1) {
 				//TODO - make player able to create profile
+				String[] pathnames;
+				File f = new File("/profiles");
+				pathnames = f.list();
+				for (String pathname : pathnames){
+					System.out.println(pathname);
+				}
 			} else if (userInput == 2) {
 				//TODO - Allow for profiles to not be stored permanantly
 			} else {
@@ -252,5 +258,16 @@ public class Final {
 	}
 	public static void runGame(Scanner input){
 		//TODO - Actual Poker Game Code
+
 	}
 }
+
+/*
+1. Ashton
+2. Edward
+3.
+4. Guest1
+5. Guest2
+6.
+
+ */

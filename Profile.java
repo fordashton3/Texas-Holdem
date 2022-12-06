@@ -3,14 +3,16 @@ public class Profile {
 	private int balance;
 	private int wins;
 	private int games;
+	private boolean save;
 	private double ratio;
 
 
-	public Profile(String name, int balance, int wins, int games) {
+	public Profile(String name, int balance, int wins, int games, boolean save) {
 		this.name = name;
 		this.balance = balance;
 		this.wins = wins;
 		this.games = games;
+		this.save = save;
 		this.ratio = wins/games;
 	}
 
@@ -28,6 +30,10 @@ public class Profile {
 
 	public int getGames() {
 		return games;
+	}
+
+	public boolean isSave() {
+		return save;
 	}
 
 	public double getRatio() {
@@ -48,6 +54,10 @@ public class Profile {
 
 	public void setGames(int games) {
 		this.games = games;
+	}
+
+	public void setSave(boolean save) {
+		this.save = save;
 	}
 
 	public String toString() {
