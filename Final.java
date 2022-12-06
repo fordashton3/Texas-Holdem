@@ -21,7 +21,6 @@ public class Final {
 			System.out.println(e.getMessage());
 		}
 
-
 		try (Scanner reader = new Scanner(playerData)) {
 			String line = reader.nextLine();
 			int counter = 0;
