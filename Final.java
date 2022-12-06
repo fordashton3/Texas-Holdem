@@ -29,7 +29,6 @@ public class Final {
 
 			players = new Profile[columns.length / 4];
 
-
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 		} catch (NumberFormatException e) {
