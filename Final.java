@@ -1,4 +1,5 @@
 import java.io.*;
+import java.sql.SQLOutput;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -169,6 +170,7 @@ public class Final {
 		for (int i = 0; i < 6; i++) {
 			System.out.printf("\t%d", i + 1);
 		}
+		System.out.println();
 		int seat = 0;
 		try {
 			seat = input.nextInt();
@@ -200,7 +202,6 @@ public class Final {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-
 	}
 
 	public static void chooseProfile(Scanner input, int seat) {
@@ -229,11 +230,7 @@ public class Final {
 			if (userInput == 1) {
 				createProfile(input, players, seat);
 			} else if (userInput == 2) {
-				//TODO - Allow for profiles to not be stored permanantly
-				// if (userID.contains(" ")) {
-				// input.nextLine();
-				// throw new Exception("Invalid Username - Cannot Contain Spaces");
-				// }
+				createGuest(input, players, seat);
 			} else {
 				throw new Exception("Invalid Input");
 			}
@@ -253,8 +250,13 @@ public class Final {
 					System.out.print("Username already in use\nEnter a different Username: ");
 				}
 			}
-			players[seat] = new Profile(username, 1000, 0,1,true);
-			try (BufferedWriter writer = new BufferedWriter(new FileWriter(username))) { // TODO - Don't allow special characters due to file names
+			players[seat] = new Profile(username, 1000, 0, 1, true);
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter(username))) {
+				// TODO - Don't allow special characters due to file names
+				//  if (userID.contains("Special Character")) {
+				//  input.nextLine();
+				//  throw new Exception("Invalid Username - Cannot Contain Spaces");
+				//  }
 				writer.write(players[seat].toString());
 			} catch (IOException e) {
 				System.out.println("IO error occurred");
