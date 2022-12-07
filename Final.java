@@ -137,11 +137,10 @@ public class Final {
 	}
 
 	// Use possible players
-	public static void writeProfiles(File file, Profile[] players) {
+	public static void writeProfiles(Profile players, String username) {
+		File file = new File("profiles/" + username);
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-			for (int i = 0; i < players.length; i++) {
-				writer.write(players[i].toString() + "\n");
-			}
+				writer.write(players.toString() + "\n");
 		} catch (IOException e) {
 			System.out.println("IO error occurred");
 		}
@@ -251,13 +250,8 @@ public class Final {
 				}
 			}
 			players[seat] = new Profile(username, 1000, 0, 1, true);
-			try (BufferedWriter writer = new BufferedWriter(new FileWriter(username))) {
-				// TODO - Don't allow special characters due to file names
-				//  if (userID.contains("Special Character")) {
-				//  input.nextLine();
-				//  throw new Exception("Invalid Username - Cannot Contain Spaces");
-				//  }
-				writer.write(players[seat].toString());
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter(username))) {// TODO - Don't allow special characters due to file names
+				writeProfiles(players[seat], username);
 			} catch (IOException e) {
 				System.out.println("IO error occurred");
 				System.exit(1);
