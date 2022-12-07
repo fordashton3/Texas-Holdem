@@ -10,21 +10,10 @@ public class Final {
 		Profile[] players = new Profile[6];
 		runMenu(players);
 
-		initDeck(deck);
-		File playerData = new File("player data.txt");
 
-		try (Scanner reader = new Scanner(playerData)) {
-			String line = reader.nextLine();
-			int counter = 0;
-			String[] columns = line.split(",");
+		runGame(players, deck);
 
-			players = new Profile[columns.length / 4];
 
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
-		} catch (NumberFormatException e) {
-			System.out.println("File not formatted correctly");
-		}
 
 	}
 
@@ -151,7 +140,7 @@ public class Final {
 		try (Scanner input = new Scanner(System.in)) {
 			menuInput = input.nextInt();
 			if (menuInput == 1) {
-				chooseSeat(input, players);
+				chooseSeat(players);
 			} else if (menuInput == 2) {
 				input.close();
 				System.exit(1);
@@ -163,7 +152,7 @@ public class Final {
 		}
 	}
 
-	public static void chooseSeat(Scanner input, Profile[] players) {
+	public static void chooseSeat(Profile[] players) {
 		System.out.println("Which seat would you like to interact with?");
 		for (int i = 0; i < 6; i++) {
 			if (players[i] != null) {
@@ -174,7 +163,7 @@ public class Final {
 		}
 		System.out.println();
 		int seat = 0;
-		try {
+		try (Scanner input = new Scanner(System.in)){
 			seat = input.nextInt();
 			if (seat < 1 || seat > 6) {
 				throw new Exception("Input out of specified range");
@@ -185,10 +174,10 @@ public class Final {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		runUserSetup(input, seat, players);
+		runUserSetup(seat, players);
 	}
 
-	public static void runUserSetup(Scanner input, int seat, Profile[] players) {
+	public static void runUserSetup(int seat, Profile[] players) {
 		int menuInput = 0;
 		if (players[seat] != null) {
 			System.out.printf("Seat %d is occupied by %s.%n\t1. Make %s leave the table%n\t2. Return to Menu%n", seat + 1, players[seat].getName(), players[seat].getName());
@@ -197,7 +186,7 @@ public class Final {
 				if (menuInput == 1) {
 					writeProfiles(players[seat], players[seat].getName());
 					players[seat] = null;
-					chooseSeat(input, players);
+					chooseSeat(players);
 				} else if (menuInput == 2) {
 					saveProfiles(players);
 					runMenu(players);
@@ -212,9 +201,9 @@ public class Final {
 			try {
 				menuInput = input.nextInt();
 				if (menuInput == 1) {
-					chooseProfile(input, players, seat);
+					chooseProfile(players, seat);
 				} else if (menuInput == 2) {
-					runNewProfile(input, players, seat);
+					runNewProfile(players, seat);
 				} else if (menuInput == 3) {
 					runMenu(players);
 				} else {
@@ -340,10 +329,10 @@ public class Final {
 		}
 	}
 
-	public static void getUserOrPlay(Scanner input, Profile[] players) {
+	public static void getUserOrPlay(Profile[] players) {
 		int userInput = 0;
 		System.out.printf("1. Seat Selection%n2. Play Poker!%n3. Exit to menu%n"); //TODO - On menu exit, clear seats.
-		try {
+		try (Scanner input = new Scanner(System.in)) { //TODO - Make all scanners "input" self contained.
 			userInput = input.nextInt();
 			if (userInput == 1) {
 				chooseSeat(input, players);
@@ -361,8 +350,10 @@ public class Final {
 		}
 	}
 
-	public static void runGame(Scanner input) {
-		//TODO - Actual Poker Game Code
+	public static void runGame(Profile[] players, Card[] deck) {//TODO - Create gameplay loop
+		Hand[] hands = new Hand[6];
+
+
 
 	}
 

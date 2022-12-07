@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fc10771-aab8-4e36-bd06-b8481b63b65b" name="Changes" comment="PROPER SEATING!!">
-      <change afterPath="$PROJECT_DIR$/Ashton" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Edward" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Hayden" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Hand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Final.java" beforeDir="false" afterPath="$PROJECT_DIR$/Final.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Texas Holdem/Final.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Texas Holdem/Final.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/profiles/Ashton" beforeDir="false" afterPath="$PROJECT_DIR$/profiles/Ashton" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/profiles/Edward" beforeDir="false" afterPath="$PROJECT_DIR$/profiles/Edward" afterDir="false" />
     </list>
     <list id="0e16e3a0-ade9-432f-9502-80710773eddf" name="Changes by Edward" comment="PROPER SEATING">
       <change beforePath="$PROJECT_DIR$/Final.java" beforeDir="false" afterPath="$PROJECT_DIR$/Final.java" afterDir="false" />
@@ -32,18 +27,37 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/Final.java">
       <ranges>
-        <range start1="122" end1="124" start2="122" end2="123" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="128" end1="129" start2="127" end2="128" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="130" end1="131" start2="129" end2="130" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="138" end1="139" start2="137" end2="137" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="182" end1="182" start2="180" end2="181" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="192" end1="206" start2="191" end2="224" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="209" end1="210" start2="227" end2="228" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="220" end1="226" start2="238" end2="240" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="228" end1="228" start2="242" end2="244" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="313" end1="315" start2="329" end2="332" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="316" end1="319" start2="333" end2="337" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="349" end1="349" start2="367" end2="368" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="12" end1="14" start2="12" end2="12" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="15" end1="19" start2="13" end2="14" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="20" end1="21" start2="15" end2="15" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="22" end1="27" start2="16" end2="16" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="153" end1="154" start2="142" end2="143" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="165" end1="166" start2="154" end2="155" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="176" end1="177" start2="165" end2="166" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="187" end1="188" start2="176" end2="177" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="190" end1="191" start2="179" end2="180" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="194" end1="195" start2="183" end2="184" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="199" end1="200" start2="188" end2="189" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="211" end1="212" start2="200" end2="201" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="214" end1="215" start2="203" end2="204" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="216" end1="217" start2="205" end2="206" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="228" end1="229" start2="217" end2="218" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="230" end1="231" start2="219" end2="220" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="248" end1="249" start2="237" end2="238" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="252" end1="253" start2="241" end2="242" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="255" end1="256" start2="244" end2="245" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="258" end1="259" start2="247" end2="248" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="260" end1="261" start2="249" end2="250" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="267" end1="268" start2="256" end2="257" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="270" end1="272" start2="259" end2="261" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="291" end1="292" start2="280" end2="281" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="294" end1="296" start2="283" end2="285" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="309" end1="310" start2="298" end2="299" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="342" end1="343" start2="331" end2="332" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="345" end1="346" start2="334" end2="335" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="348" end1="349" start2="337" end2="338" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="350" end1="351" start2="339" end2="341" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="363" end1="365" start2="353" end2="357" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
       </ranges>
     </file>
   </component>
@@ -218,7 +232,28 @@
       <option name="project" value="LOCAL" />
       <updated>1670387364537</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="PROPER SEATING!!">
+      <created>1670392585188</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1670392585188</updated>
+    </task>
+    <task id="LOCAL-00020" summary="PROPER SEATING">
+      <created>1670392593203</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1670392593203</updated>
+    </task>
+    <task id="LOCAL-00021" summary="PROPER SEATING!!">
+      <created>1670392601335</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1670392601335</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -243,10 +278,10 @@
     <MESSAGE value="Adds Profile creation" />
     <MESSAGE value="Profile Creation Working" />
     <MESSAGE value="File Extention Changes" />
-    <MESSAGE value="PROPER SEATING!!" />
     <MESSAGE value="Changes by Edward" />
     <MESSAGE value="PROPER SEATING" />
-    <option name="LAST_COMMIT_MESSAGE" value="PROPER SEATING" />
+    <MESSAGE value="PROPER SEATING!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="PROPER SEATING!!" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
