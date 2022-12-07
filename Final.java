@@ -194,7 +194,7 @@ public class Final {
 		try {
 			menuInput = input.nextInt();
 			if (menuInput == 1) {
-				chooseProfile(input, seat);
+				chooseProfile(input, players);
 			} else if (menuInput == 2) {
 				runNewProfile(input, players, seat);
 			} else if (menuInput == 3) {
@@ -207,7 +207,7 @@ public class Final {
 		}
 	}
 
-	public static void chooseProfile(Scanner input, int seat) {
+	public static void chooseProfile(Scanner input, Profile[] players) {
 		String[] filesNames;
 		try {
 			filesNames = fileList(true);
@@ -229,6 +229,7 @@ public class Final {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		getUserOrPlay(input, players);
 	}
 
 
@@ -247,6 +248,7 @@ public class Final {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		getUserOrPlay(input, players);
 	}
 
 	public static void createProfile(Scanner input, Profile[] players, int seat) {
@@ -270,6 +272,7 @@ public class Final {
 		} catch (NoSuchElementException e) {
 			System.out.println("No lines to read from");
 		}
+		getUserOrPlay(input, players);
 	}
 
 	public static void createGuest(Scanner input, Profile[] players, int seat) {
@@ -287,6 +290,7 @@ public class Final {
 		} catch (NoSuchElementException e) {
 			System.out.println("No lines to read from");
 		}
+		getUserOrPlay(input, players);
 	}
 
 	public static String[] fileList(boolean print) {
@@ -317,8 +321,25 @@ public class Final {
 		}
 	}
 
-	public static void getUserOrPlay(){
-		
+	public static void getUserOrPlay(Scanner input, Profile[] players) {
+		int userInput = 0;
+		System.out.printf("1. Seat Selection%n2. Play Poker!%n3. Exit to menu%n"); //TODO - On menu exit, clear seats.
+		try {
+			userInput = input.nextInt();
+			if (userInput == 1) {
+				chooseSeat(input, players);
+			} else if (userInput == 2) {
+				runGame(input);
+			} else if (userInput == 3) {
+				saveProfiles(players);
+				runMenu(players);
+
+			} else {
+				throw new Exception("Invalid input");
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public static void runGame(Scanner input) {
