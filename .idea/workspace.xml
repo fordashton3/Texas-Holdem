@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fc10771-aab8-4e36-bd06-b8481b63b65b" name="Changes" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/Test.java" afterDir="false" />
+    <list default="true" id="4fc10771-aab8-4e36-bd06-b8481b63b65b" name="Changes" comment="Update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Final.java" beforeDir="false" afterPath="$PROJECT_DIR$/Final.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/Profile.java" afterDir="false" />
     </list>
-    <list id="0e16e3a0-ade9-432f-9502-80710773eddf" name="Changes by Edward" comment="">
+    <list id="0e16e3a0-ade9-432f-9502-80710773eddf" name="Changes by Edward" comment="Changes by Edward">
       <change beforePath="$PROJECT_DIR$/Final.java" beforeDir="false" afterPath="$PROJECT_DIR$/Final.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,27 +27,24 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/Final.java">
       <ranges>
-        <range start1="0" end1="1" start2="0" end2="5" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="7" end1="9" start2="11" end2="12" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="110" end1="123" start2="113" end2="113" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="141" end1="142" start2="131" end2="132" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="143" end1="144" start2="133" end2="134" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="145" end1="152" start2="135" end2="138" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="153" end1="153" start2="139" end2="140" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="173" end1="174" start2="160" end2="161" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="176" end1="177" start2="163" end2="164" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
-        <range start1="180" end1="181" start2="167" end2="168" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="183" end1="184" start2="170" end2="171" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="188" end1="191" start2="175" end2="180" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
-        <range start1="192" end1="201" start2="181" end2="188" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
-        <range start1="203" end1="205" start2="190" end2="193" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="206" end1="207" start2="194" end2="195" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="220" end1="221" start2="208" end2="215" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
-        <range start1="236" end1="237" start2="230" end2="231" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="243" end1="249" start2="237" end2="238" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
-        <range start1="254" end1="255" start2="243" end2="244" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="258" end1="259" start2="247" end2="249" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="262" end1="262" start2="252" end2="253" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="2" end1="2" start2="2" end2="3" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="147" end1="148" start2="148" end2="149" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="165" end1="166" start2="166" end2="167" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="170" end1="170" start2="171" end2="172" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="171" end1="173" start2="173" end2="177" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="175" end1="175" start2="179" end2="181" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="176" end1="178" start2="182" end2="183" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="180" end1="185" start2="185" end2="189" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="187" end1="188" start2="191" end2="192" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="189" end1="190" start2="193" end2="194" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="192" end1="192" start2="196" end2="198" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="193" end1="193" start2="199" end2="201" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="194" end1="194" start2="202" end2="203" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="196" end1="197" start2="205" end2="206" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="220" end1="221" start2="229" end2="230" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="223" end1="224" start2="232" end2="233" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="226" end1="227" start2="235" end2="236" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="237" end1="237" start2="246" end2="300" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
       </ranges>
     </file>
   </component>
@@ -70,8 +66,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "TODO_SCOPE": "All Places",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "C:/Users/Ashton/OneDrive/Documents/Java Code/Projects/Texas Holdem",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+    "last_opened_file_path": "C:/Users/Ashton/OneDrive/Documents/Java Code/Semester 1",
+    "settings.editor.selected.configurable": "preferences.general"
   }
 }]]></component>
   <component name="RunManager">
@@ -145,7 +141,21 @@
       <option name="project" value="LOCAL" />
       <updated>1670300676248</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Update">
+      <created>1670377181884</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1670377181884</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Changes by Edward">
+      <created>1670377191816</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1670377191816</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -164,6 +174,12 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <MESSAGE value="Initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+    <MESSAGE value="Update" />
+    <MESSAGE value="Changes by Edward" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by Edward" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

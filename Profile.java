@@ -61,6 +61,6 @@ public class Profile {
 	}
 
 	public String toString() {
-		return String.format("%s,%d,%d,%d\n", name, balance, wins, games);
+		return String.format("%s,%d,%d,%d,%b", name, balance, wins, games, save);
 	}
 }

@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Final {
@@ -145,7 +146,7 @@ public class Final {
 		}
 	}
 
-	public static void runMenu(Profile[] players) {
+	public static void runMenu(Profile[] players){
 		int menuInput = 0;
 		System.out.printf("1. Start game%n2. Quit to Desktop%n");
 		try (Scanner input = new Scanner(System.in)) {
@@ -163,19 +164,23 @@ public class Final {
 		}
 	}
 
-	public static int chooseSeat(Scanner input, Profile[] players) {
+	public static void chooseSeat(Scanner input, Profile[] players) {
 		System.out.println("Which seat would you like to interact with?");
 		for (int i = 0; i < 6; i++){
 			System.out.printf("\t%d", i + 1);
 		}
+		int seat = 0;
 		try {
-			int seat = input.nextInt();
-			return seat;
+			seat = input.nextInt();
+			if (seat < 1 || seat > 6){
+				throw new Exception("Input out of specified range");
+			}
 		} catch (InputMismatchException e){
 			System.out.println("Input mismatch");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
-		return 0;
-		//Make sure corresponding method excludes seat 0 as an option
+		runUserSetup(input, seat, players);
 	}
 
 	public static void runUserSetup(Scanner input, int avaliableSeats, Profile[] players) {
@@ -224,7 +229,7 @@ public class Final {
 		try {
 			userInput = input.nextInt();
 			if (userInput == 1) {
-				//TODO - make player able to create profile
+				createProfile(input, players, seat);
 
 			} else if (userInput == 2) {
 				//TODO - Allow for profiles to not be stored permanantly
@@ -234,6 +239,60 @@ public class Final {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	public static void createProfile(Scanner input, Profile[] players, int seat) {
+		try {
+			String[] fileNames = fileList(false);
+			String username = null;
+			for (String fileName : fileNames) {
+				System.out.print("Enter a Username: ");
+				username = input.nextLine();
+				while (username.equalsIgnoreCase(fileName)) {
+					System.out.print("Username already in use\nEnter a different Username: ");
+				}
+			}
+			players[seat] = new Profile(username, 1000, 0,1,true);
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter(username))) { // TODO - Don't allow special characters due to file names
+				writer.write(players[seat].toString());
+			} catch (IOException e) {
+				System.out.println("IO error occurred");
+				System.exit(1);
+			}
+		} catch (NoSuchElementException e) {
+			System.out.println("No lines to read from");
+		}
+	}
+	public static void createGuest(Scanner input, Profile[] players, int seat){
+		try {
+			String[] fileNames = fileList(false);
+			String username = null;
+			for (String fileName : fileNames) {
+				System.out.print("Enter a Username: ");
+				username = input.nextLine();
+				for (int i = 0; i < 6; i++) {
+					if (username.equalsIgnoreCase(fileName) || username.equalsIgnoreCase(players[i].getName())) {
+						while (username.equalsIgnoreCase(fileName) || username.equalsIgnoreCase(players[i].getName())) {
+							System.out.print("Username already in use\nEnter a different Username: ");
+						}
+					}
+				}
+			}
+			players[seat] = new Profile(username, 1000, 0,1,false);
+		} catch (NoSuchElementException e) {
+			System.out.println("No lines to read from");
+		}
+	}
+
+	public static String[] fileList(boolean print){
+		String[] pathnames;
+		File file = new File("profiles");
+		pathnames = file.list();
+		if (print) {
+			for (String pathname : pathnames) {
+				System.out.println(pathname);
+			}
+		}
+		return pathnames;
 	}
 
 	public static void runGame(Scanner input) {
