@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fc10771-aab8-4e36-bd06-b8481b63b65b" name="Changes" comment="Update">
+    <list default="true" id="4fc10771-aab8-4e36-bd06-b8481b63b65b" name="Changes" comment="Allows profile creation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Final.java" beforeDir="false" afterPath="$PROJECT_DIR$/Final.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Texas Holdem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Texas Holdem/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Texas Holdem/Final.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Texas Holdem/Final.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Texas Holdem/Profile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Texas Holdem/Profile.class" afterDir="false" />
     </list>
     <list id="0e16e3a0-ade9-432f-9502-80710773eddf" name="Changes by Edward" comment="Changes by Edward">
       <change beforePath="$PROJECT_DIR$/Final.java" beforeDir="false" afterPath="$PROJECT_DIR$/Final.java" afterDir="false" />
@@ -27,24 +29,23 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/Final.java">
       <ranges>
-        <range start1="2" end1="2" start2="2" end2="3" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="147" end1="148" start2="148" end2="149" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="165" end1="166" start2="166" end2="167" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="170" end1="170" start2="171" end2="172" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="171" end1="173" start2="173" end2="177" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="175" end1="175" start2="179" end2="181" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="176" end1="178" start2="182" end2="183" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="180" end1="185" start2="185" end2="189" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
-        <range start1="187" end1="188" start2="191" end2="192" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
-        <range start1="189" end1="190" start2="193" end2="194" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
-        <range start1="192" end1="192" start2="196" end2="198" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
-        <range start1="193" end1="193" start2="199" end2="201" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
-        <range start1="194" end1="194" start2="202" end2="203" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
-        <range start1="196" end1="197" start2="205" end2="206" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
-        <range start1="220" end1="221" start2="229" end2="230" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
-        <range start1="223" end1="224" start2="232" end2="233" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="226" end1="227" start2="235" end2="236" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="237" end1="237" start2="246" end2="300" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="1" end1="1" start2="1" end2="2" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="10" end1="12" start2="11" end2="13" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="148" end1="149" start2="149" end2="150" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="168" end1="169" start2="169" end2="170" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="171" end1="171" start2="172" end2="173" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="174" end1="175" start2="176" end2="177" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="177" end1="178" start2="179" end2="180" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="199" end1="200" start2="201" end2="202" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="202" end1="203" start2="204" end2="204" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="206" end1="217" start2="207" end2="223" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="225" end1="226" start2="231" end2="231" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="227" end1="232" start2="232" end2="233" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="239" end1="239" start2="240" end2="241" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="250" end1="252" start2="252" end2="259" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="261" end1="262" start2="268" end2="270" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="276" end1="277" start2="284" end2="285" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="282" end1="283" start2="290" end2="291" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
       </ranges>
     </file>
   </component>
@@ -155,7 +156,21 @@
       <option name="project" value="LOCAL" />
       <updated>1670377191816</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Allows profile creation">
+      <created>1670381393346</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1670381393346</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Changes by Edward">
+      <created>1670381405133</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1670381405133</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -175,6 +190,7 @@
     </ignored-roots>
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Update" />
+    <MESSAGE value="Allows profile creation" />
     <MESSAGE value="Changes by Edward" />
     <option name="LAST_COMMIT_MESSAGE" value="Changes by Edward" />
   </component>

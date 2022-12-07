@@ -8,8 +8,8 @@ public class Final {
 		welcome();
 		Card[] deck = new Card[52];
 		Profile[] players = new Profile[6];
-		int numStored;
-		//TODO - Implement edwards code "runMenu() - is start
+		runMenu(players);
+
 		initDeck(deck);
 		File playerData = new File("player data.txt");
 
@@ -146,7 +146,7 @@ public class Final {
 		}
 	}
 
-	public static void runMenu(Profile[] players){
+	public static void runMenu(Profile[] players) {
 		int menuInput = 0;
 		System.out.printf("1. Start game%n2. Quit to Desktop%n");
 		try (Scanner input = new Scanner(System.in)) {
@@ -166,16 +166,16 @@ public class Final {
 
 	public static void chooseSeat(Scanner input, Profile[] players) {
 		System.out.println("Which seat would you like to interact with?");
-		for (int i = 0; i < 6; i++){
+		for (int i = 0; i < 6; i++) {
 			System.out.printf("\t%d", i + 1);
 		}
 		int seat = 0;
 		try {
 			seat = input.nextInt();
-			if (seat < 1 || seat > 6){
+			if (seat < 1 || seat > 6) {
 				throw new Exception("Input out of specified range");
 			}
-		} catch (InputMismatchException e){
+		} catch (InputMismatchException e) {
 			System.out.println("Input mismatch");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -197,24 +197,29 @@ public class Final {
 			} else {
 				throw new Exception("Invalid input");
 			}
-		} catch(Exception e){
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
 	}
 
 	public static void chooseProfile(Scanner input, int seat) {
-		String[] filesNames = fileList(false);
-		for (int i = 0; i < 1; i++) {
-			try {
-				System.out.print("Username: ");
-				String userID = input.nextLine();
-
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
+		String[] filesNames;
+		try {
+			filesNames = fileList(true);
+			int profile = 0;
+			System.out.print("Enter the integer corresponding to your profile: ");
+			profile = input.nextInt();
+			if(profile < 1 || profile > filesNames.length){
+				throw new Exception("Input is out of range");
 			}
+		} catch (InputMismatchException e){
+			System.out.println("Input Mismatch");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 	}
+
 
 	public static void runNewProfile(Scanner input, Profile[] players, int seat) {
 		int userInput = 0;
@@ -223,7 +228,6 @@ public class Final {
 			userInput = input.nextInt();
 			if (userInput == 1) {
 				createProfile(input, players, seat);
-
 			} else if (userInput == 2) {
 				//TODO - Allow for profiles to not be stored permanantly
 				// if (userID.contains(" ")) {
@@ -237,6 +241,7 @@ public class Final {
 			System.out.println(e.getMessage());
 		}
 	}
+
 	public static void createProfile(Scanner input, Profile[] players, int seat) {
 		try {
 			String[] fileNames = fileList(false);
@@ -259,7 +264,8 @@ public class Final {
 			System.out.println("No lines to read from");
 		}
 	}
-	public static void createGuest(Scanner input, Profile[] players, int seat){
+
+	public static void createGuest(Scanner input, Profile[] players, int seat) {
 		try {
 			String[] fileNames = fileList(false);
 			String username = null;
@@ -274,20 +280,24 @@ public class Final {
 					}
 				}
 			}
-			players[seat] = new Profile(username, 1000, 0,1,false);
+			players[seat] = new Profile(username, 1000, 0, 1, false);
 		} catch (NoSuchElementException e) {
 			System.out.println("No lines to read from");
 		}
 	}
 
-	public static String[] fileList(boolean print){
+	public static String[] fileList(boolean print) {
 		String[] pathnames;
 		File file = new File("profiles");
 		pathnames = file.list();
-		if (print) {
-			for (String pathname : pathnames) {
-				System.out.println(pathname);
+		try {
+			if (print) {
+				for (int i = 0; i < pathnames.length; i++) {
+					System.out.printf("%d. %s%n", i + 1, pathnames[i]);
+				}
 			}
+		} catch (NullPointerException e){
+			System.out.println("Null pointer");
 		}
 		return pathnames;
 	}

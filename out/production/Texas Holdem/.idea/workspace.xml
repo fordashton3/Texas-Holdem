@@ -4,17 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fc10771-aab8-4e36-bd06-b8481b63b65b" name="Changes" comment="Initial commit" />
+    <list default="true" id="4fc10771-aab8-4e36-bd06-b8481b63b65b" name="Changes" comment="Allows profile creation">
+      <change beforePath="$PROJECT_DIR$/Final.java" beforeDir="false" afterPath="$PROJECT_DIR$/Final.java" afterDir="false" />
+    </list>
+    <list id="0e16e3a0-ade9-432f-9502-80710773eddf" name="Changes by Edward" comment="Changes by Edward">
+      <change beforePath="$PROJECT_DIR$/Final.java" beforeDir="false" afterPath="$PROJECT_DIR$/Final.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/Final.java">
+      <ranges>
+        <range start1="10" end1="12" start2="10" end2="12" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="225" end1="226" start2="225" end2="225" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="227" end1="232" start2="226" end2="227" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="251" end1="252" start2="246" end2="252" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+      </ranges>
+    </file>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2IWWkjANb6IdGdbUbyzo5cz6dvf" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -23,10 +48,25 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Ashton/OneDrive/Documents/Java Code/Projects/Texas Holdem",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+    "TODO_SCOPE": "All Places",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "last_opened_file_path": "C:/Users/Ashton/OneDrive/Documents/Java Code/Semester 1",
+    "settings.editor.selected.configurable": "preferences.general"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -57,7 +97,63 @@
       <option name="project" value="LOCAL" />
       <updated>1670299612146</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Initial commit">
+      <created>1670299998724</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1670299998724</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Initial commit">
+      <created>1670300018787</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1670300018787</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Initial commit">
+      <created>1670300618107</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1670300618107</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Initial commit">
+      <created>1670300676248</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1670300676248</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Update">
+      <created>1670377181884</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1670377181884</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Changes by Edward">
+      <created>1670377191816</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1670377191816</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Allows profile creation">
+      <created>1670381393346</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1670381393346</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Changes by Edward">
+      <created>1670381405133</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1670381405133</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -76,6 +172,13 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <MESSAGE value="Initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+    <MESSAGE value="Update" />
+    <MESSAGE value="Allows profile creation" />
+    <MESSAGE value="Changes by Edward" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by Edward" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
