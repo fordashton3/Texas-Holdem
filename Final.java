@@ -1,23 +1,16 @@
 import java.io.*;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Final {
 	public static void main(String[] args) {
 		welcome();
 		Card[] deck = new Card[52];
-		Profile[] possiblePlayers;
-		Profile[] players;
+		Profile[] players = new Profile[6];
 		int numStored;
 		//TODO - Implement edwards code "runMenu() - is start
 		initDeck(deck);
 		File playerData = new File("player data.txt");
-		try {
-			checkFile(playerData);
-			possiblePlayers = new Profile[getLines(playerData)];
-			parseProfile(playerData, possiblePlayers);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
 
 		try (Scanner reader = new Scanner(playerData)) {
 			String line = reader.nextLine();
@@ -108,19 +101,6 @@ public class Final {
 		}
 	}
 
-	public static int getLines(File file) {
-		int counter = 0;
-		try (Scanner lineCounter = new Scanner(file)) {
-			for (int i = 0; lineCounter.hasNext("\n"); i++) {
-				counter++;
-			}
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
-		}
-		return counter;
-	}
-
-
 	public static void checkFile(File file) throws Exception {
 		int counter = 0;
 		Scanner reader = new Scanner(file);
@@ -139,18 +119,15 @@ public class Final {
 	}
 
 
-	public static void parseProfile(File file, Profile[] players) throws Exception {
+	public static void parseProfile(File file, Profile[] players, int index) throws Exception {
 		try (Scanner reader = new Scanner(file)) {
-			int counter = getLines(file);
+			String line = reader.nextLine();
 			reader.close();
-			Scanner readerNew = new Scanner(file);
-			for (int i = 0; readerNew.hasNextLine(); i++) {
-				String line = readerNew.nextLine();
-				String[] data = line.split(",");
-				players = new Profile[counter];
-				//players[i] = new Profile(data[i], Integer.parseInt(data[i + 1]), Integer.parseInt(data[i + 2]), Integer.parseInt(data[i + 3]));
-				System.out.println(players[i].toString());
+			String[] data = line.split(",");
+			for (int i = 0; i < data.length; i++) {
+				players[i] = new Profile(data[i], Integer.parseInt(data[i + 1]), Integer.parseInt(data[i + 2]), Integer.parseInt(data[i + 3]), true);
 			}
+			System.out.println(players[index].toString());
 
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
@@ -171,17 +148,17 @@ public class Final {
 	public static void runMenu(Profile[] players) {
 		int menuInput = 0;
 		System.out.printf("1. Start game%n2. Quit to Desktop%n");
-		try (Scanner input = new Scanner(System.in)){
+		try (Scanner input = new Scanner(System.in)) {
 			menuInput = input.nextInt();
 			if (menuInput == 1) {
 				getUserQuantity(input, players);
 			} else if (menuInput == 2) {
 				input.close();
 				System.exit(1);
-			} else{
+			} else {
 				throw new Exception("Invalid input");
 			}
-		} catch(Exception e){
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -201,10 +178,11 @@ public class Final {
 		runUserSetup(input, playerCount, players);
 	}
 
-	public static void runUserSetup(Scanner input, int playerCount, Profile[] players){
-		for(int i = 0; i < playerCount; i++) {
+	public static void runUserSetup(Scanner input, int avaliableSeats, Profile[] players) {
+		for (int i = avaliableSeats; i > 0; i--) {
+
 			int menuInput = 0;
-			System.out.printf("Player %d:%n%n1. Login%n2. New Player%n3. Return to Menu%n", i+1);
+			System.out.printf("Seat %d:%n\t1. Login%n\t2. New Player%n\t3. Return to Menu%n", i - (avaliableSeats-1));
 			menuInput = input.nextInt();
 			if (menuInput == 1) {
 				choosePlayer(input);
@@ -234,7 +212,7 @@ public class Final {
 		}
 	}
 
-	public static void runNewPlayer(Scanner input, Profile[] players){
+	public static void runNewPlayer(Scanner input, Profile[] players) {
 		int userInput = 0;
 		System.out.printf("1. New user%n2. Sit as guest");
 		try {
@@ -252,14 +230,16 @@ public class Final {
 			} else {
 				throw new Exception("Invalid Input");
 			}
-		} catch (Exception e){
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	public static void runGame(Scanner input){
+
+	public static void runGame(Scanner input) {
 		//TODO - Actual Poker Game Code
 
 	}
+
 }
 
 /*
