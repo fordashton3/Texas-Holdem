@@ -167,7 +167,12 @@ public class Final {
 	public static void chooseSeat(Scanner input, Profile[] players) {
 		System.out.println("Which seat would you like to interact with?");
 		for (int i = 0; i < 6; i++) {
-			System.out.printf("\t%d", i + 1);
+			if (players[i] != null){
+				System.out.printf("%d:\t%s%n", i + 1, players[i].getName());
+			}
+			else {
+				System.out.printf("%d:\tEmpty%n", i + 1);
+			}
 		}
 		System.out.println();
 		int seat = 0;
