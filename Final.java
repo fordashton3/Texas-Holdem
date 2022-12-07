@@ -151,7 +151,7 @@ public class Final {
 		try (Scanner input = new Scanner(System.in)) {
 			menuInput = input.nextInt();
 			if (menuInput == 1) {
-				getUserQuantity(input, players);
+				chooseSeat(input, players);
 			} else if (menuInput == 2) {
 				input.close();
 				System.exit(1);
@@ -163,19 +163,19 @@ public class Final {
 		}
 	}
 
-	public static void getUserQuantity(Scanner input, Profile[] players) {
-		System.out.println("How many players are sitting in? (1-6)");
-		int playerCount = 0;
-		try {
-			playerCount = input.nextInt();
-			//TODO - Make it throw an exception, not a null output
-			if (playerCount < 1 || playerCount > 6 || !input.hasNextInt()) {
-				throw new Exception("Invalid Player Count");
-			}
-		} catch (Exception e){
-			System.out.println(e.getMessage());
+	public static int chooseSeat(Scanner input, Profile[] players) {
+		System.out.println("Which seat would you like to interact with?");
+		for (int i = 0; i < 6; i++){
+			System.out.printf("\t%d", i + 1);
 		}
-		runUserSetup(input, playerCount, players);
+		try {
+			int seat = input.nextInt();
+			return seat;
+		} catch (InputMismatchException e){
+			System.out.println("Input mismatch");
+		}
+		return 0;
+		//Make sure corresponding method excludes seat 0 as an option
 	}
 
 	public static void runUserSetup(Scanner input, int avaliableSeats, Profile[] players) {
@@ -196,7 +196,13 @@ public class Final {
 
 	public static void choosePlayer(Scanner input) {
 		File user;
-		for(int i = 0; i < 1; i++){
+		String[] pathnames;
+		File f = new File("profiles");
+		pathnames = f.list();
+		for (String pathname : pathnames) {
+			System.out.println(pathname);
+		}
+		for (int i = 0; i < 1; i++) {
 			try {
 				System.out.print("Username: ");
 				String userID = input.nextLine();
@@ -219,12 +225,7 @@ public class Final {
 			userInput = input.nextInt();
 			if (userInput == 1) {
 				//TODO - make player able to create profile
-				String[] pathnames;
-				File f = new File("/profiles");
-				pathnames = f.list();
-				for (String pathname : pathnames){
-					System.out.println(pathname);
-				}
+
 			} else if (userInput == 2) {
 				//TODO - Allow for profiles to not be stored permanantly
 			} else {
