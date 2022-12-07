@@ -181,7 +181,7 @@ public class Final {
 		int menuInput = 0;
 		if (players[seat] != null) {
 			System.out.printf("Seat %d is occupied by %s.%n\t1. Make %s leave the table%n\t2. Return to Menu%n", seat + 1, players[seat].getName(), players[seat].getName());
-			try {
+			try (Scanner input = new Scanner(System.in)){
 				menuInput = input.nextInt();
 				if (menuInput == 1) {
 					writeProfiles(players[seat], players[seat].getName());
@@ -198,7 +198,7 @@ public class Final {
 			}
 		} else {
 			System.out.printf("Seat %d:%n\t1. Choose Profile%n\t2. New Profile%n\t3. Return to Menu%n", seat + 1);
-			try {
+			try (Scanner input = new Scanner(System.in)){
 				menuInput = input.nextInt();
 				if (menuInput == 1) {
 					chooseProfile(players, seat);
@@ -215,9 +215,9 @@ public class Final {
 		}
 	}
 
-	public static void chooseProfile(Scanner input, Profile[] players, int seat) {
+	public static void chooseProfile(Profile[] players, int seat) {
 		String[] filesNames;
-		try {
+		try (Scanner input = new Scanner(System.in)){
 			filesNames = fileList(true);
 			int profile = 0;
 			System.out.print("Enter the integer corresponding to your profile: ");
@@ -235,30 +235,30 @@ public class Final {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		getUserOrPlay(input, players);
+		getUserOrPlay(players);
 	}
 
 
-	public static void runNewProfile(Scanner input, Profile[] players, int seat) {
+	public static void runNewProfile(Profile[] players, int seat) {
 		int userInput = 0;
 		System.out.printf("1. New user%n2. Sit as guest%n");
-		try {
+		try (Scanner input = new Scanner(System.in)){
 			userInput = input.nextInt();
 			if (userInput == 1) {
-				createProfile(input, players, seat);
+				createProfile(players, seat);
 			} else if (userInput == 2) {
-				createGuest(input, players, seat);
+				createGuest(players, seat);
 			} else {
 				throw new Exception("Invalid Input");
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		getUserOrPlay(input, players);
+		getUserOrPlay(players);
 	}
 
-	public static void createProfile(Scanner input, Profile[] players, int seat) {
-		try {
+	public static void createProfile(Profile[] players, int seat) {
+		try (Scanner input = new Scanner(System.in)){
 			String[] fileNames = fileList(false);
 			String username = null;
 			System.out.print("Enter a Username: ");
@@ -278,11 +278,11 @@ public class Final {
 		} catch (NoSuchElementException e) {
 			System.out.println("No lines to read from");
 		}
-		getUserOrPlay(input, players);
+		getUserOrPlay(players);
 	}
 
-	public static void createGuest(Scanner input, Profile[] players, int seat) {
-		try {
+	public static void createGuest(Profile[] players, int seat) {
+		try(Scanner input = new Scanner(System.in)){
 			String[] fileNames = fileList(false);
 			String username = null;
 			for (String fileName : fileNames) {
@@ -296,7 +296,7 @@ public class Final {
 		} catch (NoSuchElementException e) {
 			System.out.println("No lines to read from");
 		}
-		getUserOrPlay(input, players);
+		getUserOrPlay(players);
 	}
 
 	public static String[] fileList(boolean print) {
@@ -335,9 +335,10 @@ public class Final {
 		try (Scanner input = new Scanner(System.in)) { //TODO - Make all scanners "input" self contained.
 			userInput = input.nextInt();
 			if (userInput == 1) {
-				chooseSeat(input, players);
+				chooseSeat(players);
 			} else if (userInput == 2) {
-				runGame(input);
+				input.close();
+				return;
 			} else if (userInput == 3) {
 				saveProfiles(players);
 				runMenu(players);
