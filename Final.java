@@ -120,15 +120,14 @@ public class Final {
 		}
 	}
 
-
-	public static void parseProfile(File file, Profile[] players, int index, boolean print) throws Exception {
+	public static void parseProfile(File file, Profile[] players, int seat, boolean print) throws Exception {
 		try (Scanner reader = new Scanner(file)) {
 			String line = reader.nextLine();
 			reader.close();
 			String[] data = line.split(",");
-			players[index] = new Profile(data[0], Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3]), true);
+			players[seat] = new Profile(data[0], Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3]), true);
 			if (print) {
-				System.out.println(players[index].toString());
+				System.out.println(players[seat].toString());
 			}
 
 		} catch (FileNotFoundException e) {
@@ -136,13 +135,14 @@ public class Final {
 		}
 	}
 
-	// Use possible players
 	public static void writeProfiles(Profile players, String username) {
 		File file = new File("profiles/" + username);
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-			writer.write(players.toString() + "\n");
-		} catch (IOException e) {
-			System.out.println("IO error occurred");
+		if (players.isSave()) {
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+				writer.write(players.toString() + "\n");
+			} catch (IOException e) {
+				System.out.println("IO error occurred");
+			}
 		}
 	}
 
@@ -180,6 +180,7 @@ public class Final {
 			if (seat < 1 || seat > 6) {
 				throw new Exception("Input out of specified range");
 			}
+			seat--;
 		} catch (InputMismatchException e) {
 			System.out.println("Input mismatch");
 		} catch (Exception e) {
@@ -190,24 +191,43 @@ public class Final {
 
 	public static void runUserSetup(Scanner input, int seat, Profile[] players) {
 		int menuInput = 0;
-		System.out.printf("Seat %d:%n\t1. Choose Profile%n\t2. New Profile%n\t3. Return to Menu%n", seat);
-		try {
-			menuInput = input.nextInt();
-			if (menuInput == 1) {
-				chooseProfile(input, players);
-			} else if (menuInput == 2) {
-				runNewProfile(input, players, seat);
-			} else if (menuInput == 3) {
-				runMenu(players);
-			} else {
-				throw new Exception("Invalid input");
+		if (players[seat] != null) {
+			System.out.printf("Seat %d is occupied by %s.%n\t1. Make %s leave the table%n\t2. Return to Menu%n", seat + 1, players[seat].getName(), players[seat].getName());
+			try {
+				menuInput = input.nextInt();
+				if (menuInput == 1) {
+					writeProfiles(players[seat], players[seat].getName());
+					players[seat] = null;
+					chooseSeat(input, players);
+				} else if (menuInput == 2) {
+					saveProfiles(players);
+					runMenu(players);
+				} else {
+					throw new Exception("Invalid input");
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
 			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		} else {
+			System.out.printf("Seat %d:%n\t1. Choose Profile%n\t2. New Profile%n\t3. Return to Menu%n", seat + 1);
+			try {
+				menuInput = input.nextInt();
+				if (menuInput == 1) {
+					chooseProfile(input, players, seat);
+				} else if (menuInput == 2) {
+					runNewProfile(input, players, seat);
+				} else if (menuInput == 3) {
+					runMenu(players);
+				} else {
+					throw new Exception("Invalid input");
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 
-	public static void chooseProfile(Scanner input, Profile[] players) {
+	public static void chooseProfile(Scanner input, Profile[] players, int seat) {
 		String[] filesNames;
 		try {
 			filesNames = fileList(true);
@@ -218,14 +238,12 @@ public class Final {
 				throw new Exception("Input is out of range");
 			}
 			profile--;
-			try  {
-				File file = new File("profiles\\" + filesNames[profile]);
-				parseProfile(file, players, profile, false);
-			} catch (IOException e){
-				System.out.println("IO error occurred");
-			}
+			File file = new File("profiles\\" + filesNames[profile]);
+			parseProfile(file, players, seat, false);
 		} catch (InputMismatchException e) {
 			System.out.println("Input Mismatch");
+		} catch (IOException e) {
+			System.out.println("IO error occurred");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -311,12 +329,14 @@ public class Final {
 
 	public static void saveProfiles(Profile[] players) {
 		for (int i = 0; i < players.length; i++) {
-			try (BufferedWriter writer = new BufferedWriter(new FileWriter(players[i].getName()))) {
-				if (players[i] != null) {
+
+			if (players[i] != null) {
+				try (BufferedWriter writer = new BufferedWriter(new FileWriter(players[i].getName()))) {
 					writeProfiles(players[i], players[i].getName());
+					players[i] = null;
+				} catch (IOException e) {
+					System.out.println("IO error occurred");
 				}
-			} catch (IOException e) {
-				System.out.println("IO error occurred");
 			}
 		}
 	}
