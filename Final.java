@@ -183,47 +183,40 @@ public class Final {
 		runUserSetup(input, seat, players);
 	}
 
-	public static void runUserSetup(Scanner input, int avaliableSeats, Profile[] players) {
-		for (int i = avaliableSeats; i > 0; i--) {
-
-			int menuInput = 0;
-			System.out.printf("Seat %d:%n\t1. Login%n\t2. New Player%n\t3. Return to Menu%n", i - (avaliableSeats-1));
+	public static void runUserSetup(Scanner input, int seat, Profile[] players) {
+		int menuInput = 0;
+		System.out.printf("Seat %d:%n\t1. Choose Profile%n\t2. New Profile%n\t3. Return to Menu%n", seat);
+		try {
 			menuInput = input.nextInt();
 			if (menuInput == 1) {
-				choosePlayer(input);
+				chooseProfile(input, seat);
 			} else if (menuInput == 2) {
-				runNewPlayer(input, players);
+				runNewProfile(input, players, seat);
 			} else if (menuInput == 3) {
 				runMenu(players);
+			} else {
+				throw new Exception("Invalid input");
 			}
+		} catch(Exception e){
+			System.out.println(e.getMessage());
 		}
+
 	}
 
-	public static void choosePlayer(Scanner input) {
-		File user;
-		String[] pathnames;
-		File f = new File("profiles");
-		pathnames = f.list();
-		for (String pathname : pathnames) {
-			System.out.println(pathname);
-		}
+	public static void chooseProfile(Scanner input, int seat) {
+		String[] filesNames = fileList(false);
 		for (int i = 0; i < 1; i++) {
 			try {
 				System.out.print("Username: ");
 				String userID = input.nextLine();
-				if (userID.contains(" ")) {
-					input.nextLine();
 
-					throw new Exception("Invalid Username - Cannot Contain Spaces");
-				}
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
-			user = new File("");
 		}
 	}
 
-	public static void runNewPlayer(Scanner input, Profile[] players) {
+	public static void runNewProfile(Scanner input, Profile[] players, int seat) {
 		int userInput = 0;
 		System.out.printf("1. New user%n2. Sit as guest");
 		try {
@@ -233,6 +226,10 @@ public class Final {
 
 			} else if (userInput == 2) {
 				//TODO - Allow for profiles to not be stored permanantly
+				// if (userID.contains(" ")) {
+				// input.nextLine();
+				// throw new Exception("Invalid Username - Cannot Contain Spaces");
+				// }
 			} else {
 				throw new Exception("Invalid Input");
 			}
