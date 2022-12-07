@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fc10771-aab8-4e36-bd06-b8481b63b65b" name="Changes" comment="Profile Creation Working">
+    <list default="true" id="4fc10771-aab8-4e36-bd06-b8481b63b65b" name="Changes" comment="File Extention Changes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Final.java" beforeDir="false" afterPath="$PROJECT_DIR$/Final.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Texas Holdem/Final.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Texas Holdem/Final.class" afterDir="false" />
     </list>
     <list id="0e16e3a0-ade9-432f-9502-80710773eddf" name="Changes by Edward" comment="Changes by Edward">
       <change beforePath="$PROJECT_DIR$/Final.java" beforeDir="false" afterPath="$PROJECT_DIR$/Final.java" afterDir="false" />
@@ -25,8 +27,23 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/Final.java">
       <ranges>
-        <range start1="169" end1="170" start2="169" end2="175" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="300" end1="302" start2="305" end2="308" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="123" end1="124" start2="123" end2="124" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="128" end1="132" start2="128" end2="132" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="142" end1="143" start2="142" end2="143" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="169" end1="170" start2="169" end2="170" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="171" end1="173" start2="171" end2="172" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="197" end1="198" start2="196" end2="197" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="210" end1="211" start2="209" end2="210" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="217" end1="218" start2="216" end2="217" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="220" end1="221" start2="219" end2="227" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="225" end1="225" start2="231" end2="232" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="243" end1="243" start2="250" end2="251" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="266" end1="266" start2="274" end2="275" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="275" end1="281" start2="284" end2="286" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="287" end1="287" start2="292" end2="293" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
+        <range start1="299" end1="300" start2="305" end2="306" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="304" end1="304" start2="310" end2="322" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="305" end1="307" start2="323" end2="342" changelist="0e16e3a0-ade9-432f-9502-80710773eddf" />
       </ranges>
     </file>
   </component>
@@ -180,7 +197,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670383816643</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="File Extention Changes">
+      <created>1670384417999</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1670384417999</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -205,7 +229,8 @@
     <MESSAGE value="Adds Profile creation" />
     <MESSAGE value="Profile Creation Working" />
     <MESSAGE value="Changes by Edward" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes by Edward" />
+    <MESSAGE value="File Extention Changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="File Extention Changes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

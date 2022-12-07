@@ -121,15 +121,15 @@ public class Final {
 	}
 
 
-	public static void parseProfile(File file, Profile[] players, int index) throws Exception {
+	public static void parseProfile(File file, Profile[] players, int index, boolean print) throws Exception {
 		try (Scanner reader = new Scanner(file)) {
 			String line = reader.nextLine();
 			reader.close();
 			String[] data = line.split(",");
-			for (int i = 0; i < data.length; i++) {
-				players[i] = new Profile(data[i], Integer.parseInt(data[i + 1]), Integer.parseInt(data[i + 2]), Integer.parseInt(data[i + 3]), true);
+			players[index] = new Profile(data[0], Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3]), true);
+			if (print) {
+				System.out.println(players[index].toString());
 			}
-			System.out.println(players[index].toString());
 
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
@@ -140,7 +140,7 @@ public class Final {
 	public static void writeProfiles(Profile players, String username) {
 		File file = new File("profiles/" + username);
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-				writer.write(players.toString() + "\n");
+			writer.write(players.toString() + "\n");
 		} catch (IOException e) {
 			System.out.println("IO error occurred");
 		}
@@ -167,10 +167,9 @@ public class Final {
 	public static void chooseSeat(Scanner input, Profile[] players) {
 		System.out.println("Which seat would you like to interact with?");
 		for (int i = 0; i < 6; i++) {
-			if (players[i] != null){
+			if (players[i] != null) {
 				System.out.printf("%d:\t%s%n", i + 1, players[i].getName());
-			}
-			else {
+			} else {
 				System.out.printf("%d:\tEmpty%n", i + 1);
 			}
 		}
@@ -215,10 +214,17 @@ public class Final {
 			int profile = 0;
 			System.out.print("Enter the integer corresponding to your profile: ");
 			profile = input.nextInt();
-			if(profile < 1 || profile > filesNames.length){
+			if (profile < 1 || profile > filesNames.length) {
 				throw new Exception("Input is out of range");
 			}
-		} catch (InputMismatchException e){
+			profile--;
+			try  {
+				File file = new File("profiles\\" + filesNames[profile]);
+				parseProfile(file, players, profile, false);
+			} catch (IOException e){
+				System.out.println("IO error occurred");
+			}
+		} catch (InputMismatchException e) {
 			System.out.println("Input Mismatch");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -273,12 +279,8 @@ public class Final {
 			for (String fileName : fileNames) {
 				System.out.print("Enter a Username: ");
 				username = input.nextLine();
-				for (int i = 0; i < 6; i++) {
-					if (username.equalsIgnoreCase(fileName) || username.equalsIgnoreCase(players[i].getName())) {
-						while (username.equalsIgnoreCase(fileName) || username.equalsIgnoreCase(players[i].getName())) {
-							System.out.print("Username already in use\nEnter a different Username: ");
-						}
-					}
+				while (username.equalsIgnoreCase(fileName)) {
+					System.out.print("Username already in use\nEnter a different Username: ");
 				}
 			}
 			players[seat] = new Profile(username, 1000, 0, 1, false);
@@ -297,10 +299,22 @@ public class Final {
 					System.out.printf("%d. %s%n", i + 1, pathnames[i]);
 				}
 			}
-		} catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			System.out.println("Null pointer");
 		}
 		return pathnames;
+	}
+
+	public static void saveProfiles(Profile[] players) {
+		for (int i = 0; i < players.length; i++) {
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter(players[i].getName()))) {
+				if (players[i] != null) {
+					writeProfiles(players[i], players[i].getName());
+				}
+			} catch (IOException e) {
+				System.out.println("IO error occurred");
+			}
+		}
 	}
 
 	public static void getUserOrPlay(){
