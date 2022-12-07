@@ -223,7 +223,7 @@ public class Final {
 
 	public static void runNewProfile(Scanner input, Profile[] players, int seat) {
 		int userInput = 0;
-		System.out.printf("1. New user%n2. Sit as guest");
+		System.out.printf("1. New user%n2. Sit as guest%n");
 		try {
 			userInput = input.nextInt();
 			if (userInput == 1) {
@@ -242,11 +242,11 @@ public class Final {
 		try {
 			String[] fileNames = fileList(false);
 			String username = null;
+			System.out.print("Enter a Username: ");
 			for (String fileName : fileNames) {
-				System.out.print("Enter a Username: ");
 				username = input.nextLine();
 				while (username.equalsIgnoreCase(fileName)) {
-					System.out.print("Username already in use\nEnter a different Username: ");
+					System.out.print("Username already in use.\nEnter a different Username: ");
 				}
 			}
 			players[seat] = new Profile(username, 1000, 0, 1, true);
@@ -296,6 +296,10 @@ public class Final {
 			System.out.println("Null pointer");
 		}
 		return pathnames;
+	}
+
+	public static void getUserOrPlay(){
+		
 	}
 
 	public static void runGame(Scanner input) {
