@@ -212,7 +212,7 @@ public class Final {
     public static void chooseProfile(Profile[] players, int seat, Scanner input) { //TODO - Restrict duplicate profile selections
         String[] filesNames;
         try {
-            filesNames = fileList(true);
+            filesNames = fileList(players,true);
             if (filesNames[0].equals("-1")) {
                 System.out.printf("1. New User Setup%n2. Exit to Menu");
                 try {
@@ -271,7 +271,7 @@ public class Final {
 
     public static void createProfile(Profile[] players, int seat, Scanner input) {
         try {
-            String[] fileNames = fileList(false);
+            String[] fileNames = fileList(players,false);
             String username = null;
             System.out.print("Enter a Username: ");
             for (String fileName : fileNames) {
@@ -303,7 +303,7 @@ public class Final {
 
     public static void createGuest(Profile[] players, int seat, Scanner input) { //TODO - Make sure to clean scanner Buffer between methods. IT BUILDS!!!!
         try {
-            String[] fileNames = fileList(false);
+            String[] fileNames = fileList(players,false);
             String username = null;
             System.out.print("Enter a Username: ");
             for (String fileName : fileNames) {
@@ -319,7 +319,7 @@ public class Final {
         getSeatOrPlay(players, input);
     }
 
-    public static String[] fileList(boolean print) {
+    public static String[] fileList(Profile[] players,boolean print) {
         String[] pathnames;
         File file = new File("profiles");
         pathnames = file.list();
@@ -327,7 +327,11 @@ public class Final {
             if (print) {
                 if (pathnames != null) {
                     for (int i = 0; i < pathnames.length; i++) {
-                        System.out.printf("%d. %s%n", i + 1, pathnames[i]);
+                        if (isDuplicate(players, pathnames[i]) ) {
+                            System.out.printf("%d. %s\t(In Use)%n", i + 1, pathnames[i]);
+                        } else {
+                            System.out.printf("%d. %s%n", i + 1, pathnames[i]);
+                        }
                     }
                 } else {
                     System.out.println("No profiles to choose from");
@@ -335,7 +339,7 @@ public class Final {
                 }
             }
         } catch (NullPointerException e) {
-            System.out.println("Null pointer");
+            System.out.println("Null Pointer");
         } finally {
             System.out.println();
         }
@@ -386,7 +390,7 @@ public class Final {
 
     public static void runGame(Profile[] players, Card[] deck, Scanner input) { //TODO - Create gameplay loop
         Card[] table = new Card[5];
-        int pot;
+        int pot = 0;
         int ante = 10;
         int prevBet = 0;
         int bet = 0;
@@ -423,13 +427,13 @@ public class Final {
                 drawTable(table, players, deck, i);
             }
         }
-//        int bestPlayer = 0;
+        int bestPlayer = 0;
 //        for (int i = 0; i < players.length; i++) {
 //            if (occupied[i] && players[i].getScore() > bestPlayer) {
 //                bestPlayer = i;
 //            }
 //        }
-//        System.out.printf("Congratulations $s! You won %d chips!%n", players[bestPlayer].getName(), );
+        System.out.printf("Congratulations $s! You won %d chips!%n", players[bestPlayer].getName(), pot);
     }
 
     public static int runRound(Profile[] players, Card[] table, boolean[] occupied, int participants, Scanner input) {
@@ -447,7 +451,7 @@ public class Final {
                 if (occupied[activePlayer]) {
                     printCards(players, table, activePlayer);
                     if (players[activePlayer] != null) {
-                        action = chooseAction(players, bet, activePlayer, input); //TODO - FIX the null pointer. Seats/Table ends up resetting as well.
+                        action = chooseAction(players, bet, activePlayer, input);
                     }
                     if (action == -1) { // fold
                         participants--;
@@ -461,7 +465,6 @@ public class Final {
                 }
                 activePlayer++;
             }
-
         }while(participants >1);
         return pot;
     }
