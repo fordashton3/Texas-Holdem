@@ -13,6 +13,7 @@ public class Final {
         runMenu(players, input);
 
         initDeck(deck);
+        shuffle(deck);
         runGame(players, deck, input);
 
 //TODO- Possibly implement globablly the ability for the program to continue even if something wrong happens.(unless critical)
@@ -62,7 +63,11 @@ public class Final {
 
     public static void printDeck(Card[] deck) {
         for (int i = 0; i < deck.length; i++) {
-            System.out.printf(deck[i].toString());
+            if (deck[i] != null) {
+                System.out.printf("%-3s ", deck[i].toString());
+            } else {
+                System.out.print("na  ");
+            }
             if (i % 13 == 12) {
                 System.out.println();
             }
@@ -117,11 +122,11 @@ public class Final {
         }
     }
 
-    public static void writeProfiles(Profile players, String username) {
-        File file = new File("profiles/" + username);
-        if (players.isSave()) {
+    public static void writeProfiles(Profile player, String username) {
+        File file = new File("profiles\\" + username);
+        if (player.isSave()) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                writer.write(players.toString() + "\n");
+                writer.write(player.toString());
             } catch (IOException e) {
                 System.out.println("IO error occurred");
             }
@@ -372,13 +377,13 @@ public class Final {
         for (int i = 0; i < deck.length - 1; i++) {
             deck[i] = deck[i + 1];
         }
-        deck[51] = temp;
+        deck[51] = null;
         return temp;
     }
 
     public static void drawTable(Card[] table, Profile[] player, Card[] deck, int index) {
-        table[index] = deck[0];
-        draw(deck);
+        table[index] = draw(deck);
+        player[index].setHand(draw(deck), index + 2);
     }
 
     public static void runGame(Profile[] players, Card[] deck, Scanner input) { //TODO - Create gameplay loop
@@ -396,12 +401,12 @@ public class Final {
             participants++;
             if (occupied[i]) {
                 players[i].setBalance(players[i].getBalance() - ante);
-                for (int j = 0; j < 1; j++) {
-                    players[j].setHand(deck[0], 0);
-                    draw(deck);
+                for (int j = 0; j < 2; j++) {
+                    players[i].setHand(draw(deck), j);
                 }
             }
         }
+
         occupied = new boolean[6];
         for (int i = 0; i < players.length; i++) {
             occupied[i] = players[i] != null;
@@ -420,13 +425,13 @@ public class Final {
                 drawTable(table, players, deck, i);
             }
         }
-        int bestPlayer = 0;
-        for (int i = 0; i < players.length; i++) {
-            if (occupied[i] && players[i].getScore() > bestPlayer) {
-                bestPlayer = i;
-            }
-        }
-        System.out.printf("Congratulations $s! You won %d chips!%n", players[bestPlayer].getName(), );
+//        int bestPlayer = 0;
+//        for (int i = 0; i < players.length; i++) {
+//            if (occupied[i] && players[i].getScore() > bestPlayer) {
+//                bestPlayer = i;
+//            }
+//        }
+//        System.out.printf("Congratulations $s! You won %d chips!%n", players[bestPlayer].getName(), );
     }
 
     public static int runRound(Profile[] players, Card[] table, boolean[] occupied, int participants, Scanner input) {
@@ -546,7 +551,7 @@ public class Final {
             if (table[i] != null) {
                 System.out.printf("%s\t", table[i]);
             } else {
-                System.out.print("--\t");
+                System.out.print("__\t");
             }
         }
         System.out.println();

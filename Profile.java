@@ -19,6 +19,8 @@ public class Profile {
 		this.save = save;
 		this.hand = new Card[7];
 		this.ratio = (double) wins / games;
+		cardOne = 0;
+		cardTwo = 1;
 	}
 
 	public String getName() {
@@ -53,6 +55,14 @@ public class Profile {
 		return ratio;
 	}
 
+	public int getCardOne() {
+		return cardOne;
+	}
+
+	public int getCardTwo() {
+		return cardTwo;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -77,8 +87,16 @@ public class Profile {
 		this.hand[index] = deck;
 	}
 
+	public void setCardOne(int cardOne) {
+		this.cardOne = cardOne;
+	}
+
+	public void setCardTwo(int cardTwo) {
+		this.cardTwo = cardTwo;
+	}
+
 	public String handToString() {
-		return String.format("%s  %s", hand[0].toString(), hand[1].toString());
+		return String.format("%-3s  %s", hand[cardOne], hand[cardTwo]);
 	}
 
 	public String toString() {
