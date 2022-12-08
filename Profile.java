@@ -87,14 +87,6 @@ public class Profile {
 		this.hand[index] = card;
 	}
 
-	public void setCardOne(int cardOne) {
-		this.cardOne = cardOne;
-	}
-
-	public void setCardTwo(int cardTwo) {
-		this.cardTwo = cardTwo;
-	}
-
 	public String handToString() {
 		return String.format("%-3s  %s", hand[cardOne], hand[cardTwo]);
 	}

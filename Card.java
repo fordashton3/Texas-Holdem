@@ -31,6 +31,7 @@ public class Card {
 
 	public void setRank(String rank) {
 		this.rank = rank;
+
 	}
 
 	public String toString(){

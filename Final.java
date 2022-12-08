@@ -401,6 +401,8 @@ public class Final {
 			if (players[i] != null){
 				occupied[i] = true;
 				participants[0]++;
+				players[i].setBalance(players[i].getBalance() - ante);
+				pot += ante;
 				players[i].setHand(draw(deck),0);
 				players[i].setHand(draw(deck),1);
 			}
@@ -413,11 +415,11 @@ public class Final {
 			}
 		}
 		int bestPlayer = 0;
-//        for (int i = 0; i < players.length; i++) {
-//            if (occupied[i] && players[i].getScore() > bestPlayer) {
-//                bestPlayer = i;
-//            }
-//        }
+        for (int i = 0; i < players.length; i++) {
+            if (occupied[i] && getScore(players[i].getHand()) > bestPlayer) {
+                bestPlayer = i;
+            }
+        }
 		System.out.printf("Congratulations %s! You won %d chips!%n", players[bestPlayer].getName(), pot);
 	}
 
@@ -551,8 +553,8 @@ public class Final {
 		System.out.println();
 	}
 
-	public static int getScore(){
-		return 0;
+	public static int getScore(Card[] hand){
+
 	}
 }
 
