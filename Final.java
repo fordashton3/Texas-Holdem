@@ -15,7 +15,7 @@ public class Final {
         initDeck(deck);
         runGame(players, deck, input);
 
-//TODO- Possibly implement globablly the ability for the program to continue even if something wrong happens.(unless critical)
+        //TODO- Possibly implement globablly the ability for the program to continue even if something wrong happens.(unless critical)
     }
 
     public static void welcome() {
@@ -383,7 +383,7 @@ public class Final {
 
     public static void runGame(Profile[] players, Card[] deck, Scanner input) { //TODO - Create gameplay loop
         Card[] table = new Card[5];
-        int pot;
+        int pot = 0;
         int ante = 10;
         int prevBet = 0;
         int bet = 0;
@@ -407,61 +407,47 @@ public class Final {
             occupied[i] = players[i] != null;
             participants++;
         }
-        do {
-            participants = runRound(players, table, occupied, participants, input);
-        } while (participants > 1);
         for (int i = 0; i < 5; i++) {
             if (i >= 3) {
-                do {
-                    participants = runRound(players, table, occupied, participants, input);
-                } while (participants > 1);
+				do {
+					int activePlayer = 0;
+					while (callCounter != participants) {
+						if (activePlayer >= 6) {
+							activePlayer = 0;
+						}
+						if (occupied[activePlayer]) {
+							printCards(players, table, activePlayer);
+							if (players[activePlayer] != null) {
+								action = chooseAction(players, bet, activePlayer, input);
+							}
+							if (action == -1) { // fold
+								participants--;
+								occupied[activePlayer] = false;
+							} else if (action > 0) { // bet
+								callCounter = 1;
+								pot += action;
+							} else if (action == 0) { // check or call
+								callCounter++;
+							}
+						}
+						activePlayer++;
+					}
+
+				}while(participants >1);
                 drawTable(table, players, deck, i);
             } else {
                 drawTable(table, players, deck, i);
             }
         }
         int bestPlayer = 0;
-        for (int i = 0; i < players.length; i++) {
-            if (occupied[i] && players[i].getScore() > bestPlayer) {
-                bestPlayer = i;
-            }
-        }
-        System.out.printf("Congratulations $s! You won %d chips!%n", players[bestPlayer].getName(), );
+//        for (int i = 0; i < players.length; i++) {
+//            if (occupied[i] && players[i].getScore() > bestPlayer) {
+//                bestPlayer = i;
+//            }
+//        }
+        System.out.printf("Congratulations $s! You won %d chips!%n", players[bestPlayer].getName(), pot);
     }
 
-    public static int runRound(Profile[] players, Card[] table, boolean[] occupied, int participants, Scanner input) {
-        int pot = 0;
-        do {
-            int callCounter = 0;
-            int action = 0;
-            int bet = 0;
-
-            int activePlayer = 0;
-            while (callCounter != participants) {
-                if (activePlayer >= 6) {
-                    activePlayer = 0;
-                }
-                if (occupied[activePlayer]) {
-                    printCards(players, table, activePlayer);
-                    if (players[activePlayer] != null) {
-                        action = chooseAction(players, bet, activePlayer, input); //TODO - FIX the null pointer. Seats/Table ends up resetting as well.
-                    }
-                    if (action == -1) { // fold
-                        participants--;
-                        occupied[activePlayer] = false;
-                    } else if (action > 0) { // bet
-                        callCounter = 1;
-                        pot += action;
-                    } else if (action == 0) { // check or call
-                        callCounter++;
-                    }
-                }
-                activePlayer++;
-            }
-
-        }while(participants >1);
-        return pot;
-    }
 
     //TODO - Create getScore method to give score based on value of hand
     public static int chooseAction(Profile[] players, int prevBet, int activePlayer, Scanner input) {
