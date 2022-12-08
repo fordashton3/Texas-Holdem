@@ -407,19 +407,28 @@ public class Final {
 					if (bet < balance){
 						players[activePlayer].setBalance(balance -= bet);
 						System.out.printf("Balance:\t%d%n", balance);
+						System.out.printf("You called for %d credits%n", bet);
 						return bet;
 					} else if (balance == bet){
 						players[activePlayer].setBalance(balance -= bet);
 						System.out.printf("Balance:\t%d%n", balance);
-						System.out.println("All In");
+						System.out.printf("All In for %d credits", bet);
+						return bet;
 					} else {
 						loop = true;
 						System.out.println("Unable to call due to insufficient funds");
 					}
 				case 'r':
-					if (balance > maxBet) { // Balance insufficient and balance greater than max bet
-						if
-					} else {
+					System.out.print("Bet amount: ");
+					try {
+						bet = input.nextInt();
+					} catch (InputMismatchException e){
+						System.out.println("Input Mismatch");
+					}
+					if (bet > maxBet && bet <= balance) { // Balance insufficient and balance greater than max bet
+						loop = true;
+						System.out.printf("Raise over max bet");
+					} else if (){
 
 					}
 				case 'x':
@@ -434,7 +443,7 @@ public class Final {
 
 			}
 
-		} while ();
+		} while (loop);
 
 	}
 
