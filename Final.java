@@ -31,7 +31,6 @@ public class Final {
         System.out.println("*****************************************");
     }
 
-
     public static void initDeck(Card[] deck) {
         String rank;
         char suit;
@@ -135,6 +134,7 @@ public class Final {
     }
 
     public static void chooseSeat(Profile[] players, Scanner input) {
+
         System.out.println("Which seat would you like to interact with?");
         for (int i = 0; i < 6; i++) {
             if (players[i] != null) {
@@ -197,6 +197,18 @@ public class Final {
         }
     }
 
+    public static boolean isDuplicate(Profile[] players, String fileName){
+
+        for (Profile player : players) {
+            if (player != null) {
+                if (player.getName().equalsIgnoreCase(fileName)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static void chooseProfile(Profile[] players, int seat, Scanner input) { //TODO - Restrict duplicate profile selections
         String[] filesNames;
         try {
@@ -222,6 +234,8 @@ public class Final {
             profile = input.nextInt();
             if (profile < 1 || profile > filesNames.length) {
                 throw new Exception("Input is out of range");
+            } else if (isDuplicate(players, filesNames[profile - 1])){
+                throw new Exception("Profile is already in use");
             }
             profile--;
             File file = new File("profiles\\" + filesNames[profile]);
@@ -234,6 +248,7 @@ public class Final {
             System.out.println(e.getMessage());
         }
         getSeatOrPlay(players, input);
+
     }
 
     public static void runNewProfile(Profile[] players, int seat, Scanner input) {
@@ -265,8 +280,8 @@ public class Final {
                     System.out.printf("Username already in use.%nEnter a different Username: ");
                     username = input.nextLine();
                 }
-                while (username.length() > 15) {
-                    System.out.printf("Username exceeds character count of 15%nEnter a different Username: ");
+                while (username.length() > 10) {
+                    System.out.printf("Username exceeds character count of 10%nEnter a different Username: ");
                     username = input.nextLine();
                 }
             }
@@ -539,11 +554,10 @@ public class Final {
         }
         System.out.println();
         for (int i = 0; i < 6; i++) {
-
             if (i == activePlayer && player[i] != null) {
-                System.out.printf("%-15s:\t%s%n", player[i].getName(), player[i].handToString());
+                System.out.printf("%-10s:\t%s%n", player[i].getName(), player[i].handToString());
             } else if (player[i] != null) {
-                System.out.printf("%-15s:\t--   --%n", player[i].getName());
+                System.out.printf("%-10s:\t--   --%n", player[i].getName());
             }
         }
         System.out.println();
