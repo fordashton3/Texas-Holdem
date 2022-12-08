@@ -83,8 +83,8 @@ public class Profile {
 		this.save = save;
 	}
 
-	public void setHand(Card deck, int index) {
-		this.hand[index] = deck;
+	public void setHand(Card card, int index) {
+		this.hand[index] = card;
 	}
 
 	public void setCardOne(int cardOne) {

@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fc10771-aab8-4e36-bd06-b8481b63b65b" name="Changes" comment="Homestretch">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Final.java" beforeDir="false" afterPath="$PROJECT_DIR$/Final.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Texas Holdem/Final.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Texas Holdem/Final.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Texas Holdem/Profile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Texas Holdem/Profile.class" afterDir="false" />
     </list>
     <list id="cb91531e-5a5f-4ab4-ba5e-49825b43499a" name="Changes by Edward" comment="Changes by Edward" />
     <option name="SHOW_DIALOG" value="false" />
@@ -292,7 +296,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670535396642</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Homestretch">
+      <created>1670536029550</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1670536029550</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
