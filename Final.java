@@ -15,7 +15,7 @@ public class Final {
 		initDeck(deck);
 		runGame(players, deck, input);
 
-
+//TODO- Possibly implement globablly the ability for the program to continue even if something wrong happens.(unless critical)
 	}
 
 	public static void welcome() {
@@ -128,13 +128,13 @@ public class Final {
 		}
 	}
 
-	public static void runMenu(Profile[] players) {
+	public static void runMenu(Profile[] players, Scanner input) {
 		int menuInput;
 		System.out.printf("1. Start game%n2. Quit to Desktop%n");
 		try {
 			menuInput = input.nextInt();
 			if (menuInput == 1) {
-				chooseSeat(players);
+				chooseSeat(players, input);
 			} else if (menuInput == 2) {
 				input.close();
 				System.exit(1);
@@ -146,7 +146,7 @@ public class Final {
 		}
 	}
 
-	public static void chooseSeat(Profile[] players) {
+	public static void chooseSeat(Profile[] players, Scanner input) {
 		System.out.println("Which seat would you like to interact with?");
 		for (int i = 0; i < 6; i++) {
 			if (players[i] != null) {
@@ -168,22 +168,23 @@ public class Final {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		runUserSetup(seat, players);
+		runUserSetup(seat, players, input);
 	}
 
-	public static void runUserSetup(int seat, Profile[] players) {
+	public static void runUserSetup(int seat, Profile[] players, Scanner input) {
 		int menuInput;
 		if (players[seat] != null) {
-			System.out.printf("Seat %d is occupied by %s.%n\t1. Make %s leave the table%n\t2. Return to Menu%n", seat + 1, players[seat].getName(), players[seat].getName());
-			try (Scanner input = new Scanner(System.in)) {
+			System.out.printf("Seat %d is occupied by %s.%n\t1. Make %s leave the table%n\t2. Return to Menu%n",
+					seat + 1, players[seat].getName(), players[seat].getName());
+			try {
 				menuInput = input.nextInt();
 				if (menuInput == 1) {
 					writeProfiles(players[seat], players[seat].getName());
 					players[seat] = null;
-					chooseSeat(players);
+					chooseSeat(players, input);
 				} else if (menuInput == 2) {
 					saveProfiles(players);
-					runMenu(players);
+					runMenu(players, input);
 				} else {
 					throw new Exception("Invalid input");
 				}
@@ -192,12 +193,12 @@ public class Final {
 			}
 		} else {
 			System.out.printf("Seat %d:%n\t1. Choose Profile%n\t2. New Profile%n\t3. Return to Menu%n", seat + 1);
-			try (Scanner input = new Scanner(System.in)) {
+			try {
 				menuInput = input.nextInt();
 				if (menuInput == 1) {
-					chooseProfile(players, seat);
+					chooseProfile(players, seat, input);
 				} else if (menuInput == 2) {
-					runNewProfile(players, seat);
+					runNewProfile(players, seat, input);
 				} else if (menuInput == 3) {
 					runMenu(players, input);
 				} else {
@@ -209,7 +210,7 @@ public class Final {
 		}
 	}
 
-	public static void chooseProfile(Profile[] players, int seat) {
+	public static void chooseProfile(Profile[] players, int seat, Scanner input) { //TODO - Restrict duplicate profile selections
 		String[] filesNames;
 		try {
 			filesNames = fileList(true);
@@ -245,30 +246,30 @@ public class Final {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		getUserOrPlay(players);
+		getSeatOrPlay(players, input);
 	}
 
 
-	public static void runNewProfile(Profile[] players, int seat) {
+	public static void runNewProfile(Profile[] players, int seat, Scanner input) {
 		int userInput;
 		System.out.printf("1. New user%n2. Sit as guest%n");
-		try (Scanner input = new Scanner(System.in)) {
+		try {
 			userInput = input.nextInt();
 			if (userInput == 1) {
-				createProfile(players, seat);
+				createProfile(players, seat, input);
 			} else if (userInput == 2) {
-				createGuest(players, seat);
+				createGuest(players, seat, input);
 			} else {
 				throw new Exception("Invalid Input");
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		getUserOrPlay(players);
+		getSeatOrPlay(players, input);
 	}
 
-	public static void createProfile(Profile[] players, int seat) {
-		try (Scanner input = new Scanner(System.in)) {
+	public static void createProfile(Profile[] players, int seat, Scanner input) {
+		try {
 			String[] fileNames = fileList(false);
 			String username = null;
 			System.out.print("Enter a Username: ");
@@ -296,15 +297,15 @@ public class Final {
 		} catch (NoSuchElementException e) {
 			System.out.println("No lines to read from");
 		}
-		getUserOrPlay(players);
+		getSeatOrPlay(players, input);
 	}
 
-	public static void createGuest(Profile[] players, int seat) {
-		try (Scanner input = new Scanner(System.in)) {
+	public static void createGuest(Profile[] players, int seat, Scanner input) { //TODO - Make sure to clean scanner Buffer between methods. IT BUILDS!!!!
+		try {
 			String[] fileNames = fileList(false);
 			String username = null;
+			System.out.print("Enter a Username: ");
 			for (String fileName : fileNames) {
-				System.out.print("Enter a Username: ");
 				username = input.nextLine();
 				while (username.equalsIgnoreCase(fileName)) {
 					System.out.print("Username already in use\nEnter a different Username: ");
@@ -314,7 +315,7 @@ public class Final {
 		} catch (NoSuchElementException e) {
 			System.out.println("No lines to read from");
 		}
-		getUserOrPlay(players);
+		getSeatOrPlay(players, input);
 	}
 
 	public static String[] fileList(boolean print) {
@@ -348,15 +349,13 @@ public class Final {
 		}
 	}
 
-	public static void getUserOrPlay(Profile[] players) {
+	public static void getSeatOrPlay(Profile[] players, Scanner input) {
 		int userInput;
 		System.out.printf("1. Seat Selection%n2. Play Poker!%n3. Exit to menu%n"); //TODO - On menu exit, clear seats.
-		try (Scanner input = new Scanner(System.in)) { //TODO - Make all scanners "input" self contained.
+		try {
 			userInput = input.nextInt();
 			if (userInput == 1) {
-				chooseSeat(players);
-			} else if (userInput == 2) {
-				input.close();
+				chooseSeat(players, input);
 			} else if (userInput == 3) {
 				saveProfiles(players);
 				runMenu(players, input);
