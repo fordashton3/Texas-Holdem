@@ -90,23 +90,6 @@ public class Final {
         }
     }
 
-    public static void checkFile(File file) throws Exception {
-        int counter;
-        Scanner reader = new Scanner(file);
-        while (reader.hasNext()) {
-            counter = 0;
-            String line = reader.nextLine();
-            for (int i = 0; i < line.length(); i++) {
-                if (line.charAt(i) == ',') {
-                    counter++;
-                }
-            }
-            if (counter != 3) {
-                throw new Exception("File not formatted correctly");
-            }
-        }
-    }
-
     public static void parseProfile(File file, Profile[] players, int seat, boolean print) {
         try (Scanner reader = new Scanner(file)) {
             String line = reader.nextLine();
