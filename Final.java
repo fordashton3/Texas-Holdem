@@ -211,7 +211,9 @@ public class Final {
 	public static void chooseProfile(Profile[] players, int seat) {
 		String[] filesNames;
 		try (Scanner input = new Scanner(System.in)) {
-			filesNames = fileList(true);
+			filesNames = fileList(true);=
+			boolean loop = true;
+			 
 			int profile;
 			System.out.print("Enter the integer corresponding to your profile: ");
 			profile = input.nextInt();
@@ -312,6 +314,7 @@ public class Final {
 					}
 				} else {
 					System.out.println("No profiles to choose from");
+					pathnames = new String[]{"-1"};
 				}
 			}
 		} catch (NullPointerException e) {
@@ -380,7 +383,6 @@ public class Final {
 			printCards(players, table, hands);
 			chooseAction();
 
-			
 
 		}
 
