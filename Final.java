@@ -1,8 +1,9 @@
 import java.io.*;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
+@SuppressWarnings("unused")
 public class Final {
 	public static void main(String[] args) {
 		welcome();
@@ -12,7 +13,6 @@ public class Final {
 
 
 		runGame(players, deck);
-
 
 
 	}
@@ -28,6 +28,7 @@ public class Final {
 		System.out.println("6. Good luck, have fun!");
 		System.out.println("*****************************************");
 	}
+
 
 	public static void initDeck(Card[] deck) {
 		String rank;
@@ -46,20 +47,12 @@ public class Final {
 					rank = Integer.toString(i + 1);
 				}
 
-				switch (j) {
-					case 0:
-						suit = '♥';
-						break;
-					case 1:
-						suit = '♦';
-						break;
-					case 2:
-						suit = '♣';
-						break;
-					default:
-						suit = '♠';
-						break;
-				}
+				suit = switch (j) {
+					case 0 -> '♥';
+					case 1 -> '♦';
+					case 2 -> '♣';
+					default -> '♠';
+				};
 				deck[13 * j + i] = new Card(rank, suit, i + 1);
 			}
 		}
@@ -92,7 +85,7 @@ public class Final {
 	}
 
 	public static void checkFile(File file) throws Exception {
-		int counter = 0;
+		int counter;
 		Scanner reader = new Scanner(file);
 		while (reader.hasNext()) {
 			counter = 0;
@@ -108,7 +101,7 @@ public class Final {
 		}
 	}
 
-	public static void parseProfile(File file, Profile[] players, int seat, boolean print) throws Exception {
+	public static void parseProfile(File file, Profile[] players, int seat, boolean print) {
 		try (Scanner reader = new Scanner(file)) {
 			String line = reader.nextLine();
 			reader.close();
@@ -135,7 +128,7 @@ public class Final {
 	}
 
 	public static void runMenu(Profile[] players) {
-		int menuInput = 0;
+		int menuInput;
 		System.out.printf("1. Start game%n2. Quit to Desktop%n");
 		try (Scanner input = new Scanner(System.in)) {
 			menuInput = input.nextInt();
@@ -163,7 +156,7 @@ public class Final {
 		}
 		System.out.println();
 		int seat = 0;
-		try (Scanner input = new Scanner(System.in)){
+		try (Scanner input = new Scanner(System.in)) {
 			seat = input.nextInt();
 			if (seat < 1 || seat > 6) {
 				throw new Exception("Input out of specified range");
@@ -178,10 +171,10 @@ public class Final {
 	}
 
 	public static void runUserSetup(int seat, Profile[] players) {
-		int menuInput = 0;
+		int menuInput;
 		if (players[seat] != null) {
 			System.out.printf("Seat %d is occupied by %s.%n\t1. Make %s leave the table%n\t2. Return to Menu%n", seat + 1, players[seat].getName(), players[seat].getName());
-			try (Scanner input = new Scanner(System.in)){
+			try (Scanner input = new Scanner(System.in)) {
 				menuInput = input.nextInt();
 				if (menuInput == 1) {
 					writeProfiles(players[seat], players[seat].getName());
@@ -198,7 +191,7 @@ public class Final {
 			}
 		} else {
 			System.out.printf("Seat %d:%n\t1. Choose Profile%n\t2. New Profile%n\t3. Return to Menu%n", seat + 1);
-			try (Scanner input = new Scanner(System.in)){
+			try (Scanner input = new Scanner(System.in)) {
 				menuInput = input.nextInt();
 				if (menuInput == 1) {
 					chooseProfile(players, seat);
@@ -217,9 +210,9 @@ public class Final {
 
 	public static void chooseProfile(Profile[] players, int seat) {
 		String[] filesNames;
-		try (Scanner input = new Scanner(System.in)){
+		try (Scanner input = new Scanner(System.in)) {
 			filesNames = fileList(true);
-			int profile = 0;
+			int profile;
 			System.out.print("Enter the integer corresponding to your profile: ");
 			profile = input.nextInt();
 			if (profile < 1 || profile > filesNames.length) {
@@ -240,9 +233,9 @@ public class Final {
 
 
 	public static void runNewProfile(Profile[] players, int seat) {
-		int userInput = 0;
+		int userInput;
 		System.out.printf("1. New user%n2. Sit as guest%n");
-		try (Scanner input = new Scanner(System.in)){
+		try (Scanner input = new Scanner(System.in)) {
 			userInput = input.nextInt();
 			if (userInput == 1) {
 				createProfile(players, seat);
@@ -258,19 +251,27 @@ public class Final {
 	}
 
 	public static void createProfile(Profile[] players, int seat) {
-		try (Scanner input = new Scanner(System.in)){
+		try (Scanner input = new Scanner(System.in)) {
 			String[] fileNames = fileList(false);
 			String username = null;
 			System.out.print("Enter a Username: ");
 			for (String fileName : fileNames) {
 				username = input.nextLine();
 				while (username.equalsIgnoreCase(fileName)) {
-					System.out.print("Username already in use.\nEnter a different Username: ");
+					System.out.printf("Username already in use.%nEnter a different Username: ");
+					username = input.nextLine();
+				}
+				while (username.length() > 20){
+					System.out.printf("Username exceeds character count of 20%nEnter a different Username: ");
+					username = input.nextLine();
 				}
 			}
 			players[seat] = new Profile(username, 1000, 0, 1, true);
-			try (BufferedWriter writer = new BufferedWriter(new FileWriter(username))) {// TODO - Don't allow special characters due to file names
-				writeProfiles(players[seat], username);
+			try {
+				assert username != null;
+				try (BufferedWriter ignored = new BufferedWriter(new FileWriter(username))) {// TODO - Don't allow special characters due to file names
+					writeProfiles(players[seat], username);
+				}
 			} catch (IOException e) {
 				System.out.println("IO error occurred");
 				System.exit(1);
@@ -282,7 +283,7 @@ public class Final {
 	}
 
 	public static void createGuest(Profile[] players, int seat) {
-		try(Scanner input = new Scanner(System.in)){
+		try (Scanner input = new Scanner(System.in)) {
 			String[] fileNames = fileList(false);
 			String username = null;
 			for (String fileName : fileNames) {
@@ -305,8 +306,12 @@ public class Final {
 		pathnames = file.list();
 		try {
 			if (print) {
-				for (int i = 0; i < pathnames.length; i++) {
-					System.out.printf("%d. %s%n", i + 1, pathnames[i]);
+				if (pathnames != null) {
+					for (int i = 0; i < pathnames.length; i++) {
+						System.out.printf("%d. %s%n", i + 1, pathnames[i]);
+					}
+				} else {
+					System.out.println("No profiles to choose from");
 				}
 			}
 		} catch (NullPointerException e) {
@@ -319,18 +324,14 @@ public class Final {
 		for (int i = 0; i < players.length; i++) {
 
 			if (players[i] != null) {
-				try (BufferedWriter writer = new BufferedWriter(new FileWriter(players[i].getName()))) {
-					writeProfiles(players[i], players[i].getName());
-					players[i] = null;
-				} catch (IOException e) {
-					System.out.println("IO error occurred");
-				}
+				writeProfiles(players[i], players[i].getName());
+				players[i] = null;
 			}
 		}
 	}
 
 	public static void getUserOrPlay(Profile[] players) {
-		int userInput = 0;
+		int userInput;
 		System.out.printf("1. Seat Selection%n2. Play Poker!%n3. Exit to menu%n"); //TODO - On menu exit, clear seats.
 		try (Scanner input = new Scanner(System.in)) { //TODO - Make all scanners "input" self contained.
 			userInput = input.nextInt();
@@ -338,7 +339,6 @@ public class Final {
 				chooseSeat(players);
 			} else if (userInput == 2) {
 				input.close();
-				return;
 			} else if (userInput == 3) {
 				saveProfiles(players);
 				runMenu(players);
@@ -353,12 +353,105 @@ public class Final {
 
 	public static void runGame(Profile[] players, Card[] deck) {//TODO - Create gameplay loop
 		Hand[] hands = new Hand[6];
+		Card[] table = new Card[5];
+		int ante = 10;
+		int call;
+		int activePlayer;
+		int participants = 0;
+		boolean[] occupied = new boolean[6];
+		for (int i = 0; i < players.length; i++) {
+			occupied[i] = players[i] != null;
+			participants++;
+		}
 
+		int[] balance = new int[6];
+		try {
+			for (int i = 0; i < players.length; i++) {
+				if (occupied[i]) {
+					assert players[i] != null;
+					balance[i] = players[i].getBalance();
+				}
+			}
+		} catch (NullPointerException e) {
+			System.out.println("Null pointer");
+		}
+
+		while (participants > 1) {
+			printCards(players, table, hands);
+			chooseAction();
+
+			
+
+		}
 
 
 	}
+	//TODO - Subtract from true balance at end of method
+	public static int chooseAction(Profile[] players, int bet, int activePlayer) {
+		int balance = players[activePlayer].getBalance();
+		char action;
+		Scanner input = new Scanner(System.in);
+		int maxBet = 0;
+		for (int i = 0; i < players.length; i++) {
+			if (maxBet > players[i].getBalance()) {
+				maxBet = i;
+			}
+		}
+		boolean loop;
+		do {
+			loop = false;
+			System.out.printf("(C) Call\t(R) Raise\t(X) Check\t(F) Fold%nChoose desired action: ");
+			action = Character.toLowerCase(input.next().charAt(0));
+			switch (action){
+				case 'c':
+					if (bet < balance){
+						players[activePlayer].setBalance(balance -= bet);
+						System.out.printf("Balance:\t%d%n", balance);
+						return bet;
+					} else if (balance == bet){
+						players[activePlayer].setBalance(balance -= bet);
+						System.out.printf("Balance:\t%d%n", balance);
+						System.out.println("All In");
+					} else {
+						loop = true;
+						System.out.println("Unable to call due to insufficient funds");
+					}
+				case 'r':
+					if (balance > maxBet) { // Balance insufficient and balance greater than max bet
+						if
+					} else {
 
+					}
+				case 'x':
+					if (bet != 0){ // Can't call behavior
 
+					} else {
+
+					}
+				case'f':
+
+				default:
+
+			}
+
+		} while ();
+
+	}
+
+	public static void printCards(Profile[] players, Card[] table, Hand[] hands){
+		for (int i = 0; i < 5; i++){
+			if (table[i] != null) {
+				System.out.printf("%s\t", table[i]);
+			} else {
+				System.out.print("__\t");
+			}
+		}
+		System.out.println();
+		for (int i = 0; i < 6; i++){
+			System.out.printf("%-20s:\t%s", players[i].getName(), hands[i]);
+		}
+		System.out.println();
+	}
 }
 
 /*
