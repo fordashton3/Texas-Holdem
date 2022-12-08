@@ -1,18 +1,19 @@
 import java.io.*;
-import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
 @SuppressWarnings("unused")
 public class Final {
 	public static void main(String[] args) {
 		welcome();
+		Scanner input = new Scanner(System.in);
 		Card[] deck = new Card[52];
 		Profile[] players = new Profile[6];
-		runMenu(players);
+		runMenu(players, input);
 
-
-		runGame(players, deck);
+		initDeck(deck);
+		runGame(players, deck, input);
 
 
 	}
@@ -130,7 +131,7 @@ public class Final {
 	public static void runMenu(Profile[] players) {
 		int menuInput;
 		System.out.printf("1. Start game%n2. Quit to Desktop%n");
-		try (Scanner input = new Scanner(System.in)) {
+		try {
 			menuInput = input.nextInt();
 			if (menuInput == 1) {
 				chooseSeat(players);
@@ -156,7 +157,7 @@ public class Final {
 		}
 		System.out.println();
 		int seat = 0;
-		try (Scanner input = new Scanner(System.in)) {
+		try {
 			seat = input.nextInt();
 			if (seat < 1 || seat > 6) {
 				throw new Exception("Input out of specified range");
@@ -198,7 +199,7 @@ public class Final {
 				} else if (menuInput == 2) {
 					runNewProfile(players, seat);
 				} else if (menuInput == 3) {
-					runMenu(players);
+					runMenu(players, input);
 				} else {
 					throw new Exception("Invalid input");
 				}
@@ -210,10 +211,24 @@ public class Final {
 
 	public static void chooseProfile(Profile[] players, int seat) {
 		String[] filesNames;
-		try (Scanner input = new Scanner(System.in)) {
-			filesNames = fileList(true);=
-			boolean loop = true;
-			 
+		try {
+			filesNames = fileList(true);
+			if (filesNames[0].equalsIgnoreCase("-1")) {
+				System.out.printf("1. New User Setup%n2. Exit to Menu");
+				try {
+					switch (input.nextInt()) {
+						case 1:
+							runNewProfile(players, seat, input);
+						case 2:
+							runMenu(players, input);
+						default:
+							input.next();
+							throw new Exception("Invalid input - Please try again");
+					}
+				} catch (InputMismatchException e) {
+					System.out.println("Input Mismatch");
+				}
+			}
 			int profile;
 			System.out.print("Enter the integer corresponding to your profile: ");
 			profile = input.nextInt();
@@ -263,8 +278,8 @@ public class Final {
 					System.out.printf("Username already in use.%nEnter a different Username: ");
 					username = input.nextLine();
 				}
-				while (username.length() > 20){
-					System.out.printf("Username exceeds character count of 20%nEnter a different Username: ");
+				while (username.length() > 15) {
+					System.out.printf("Username exceeds character count of 15%nEnter a different Username: ");
 					username = input.nextLine();
 				}
 			}
@@ -344,9 +359,8 @@ public class Final {
 				input.close();
 			} else if (userInput == 3) {
 				saveProfiles(players);
-				runMenu(players);
-
-			} else {
+				runMenu(players, input);
+			} else if (userInput != 2) {
 				throw new Exception("Invalid input");
 			}
 		} catch (Exception e) {
@@ -354,112 +368,163 @@ public class Final {
 		}
 	}
 
-	public static void runGame(Profile[] players, Card[] deck) {//TODO - Create gameplay loop
-		Hand[] hands = new Hand[6];
+	public static void drawHand(Profile player, Card[] deck, int index) { // TODO - make it draw different cards
+		Card temp = deck[0];
+		for (int i = 0; i < deck.length - 1; i++){
+			deck[i].setRank(deck[i + 1].getRank());
+			deck[i].setSuit(deck[i + 1].getSuit());
+			deck[i].setValue(deck[i + 1].getValue());
+		}
+		deck[51] = temp;
+		player.setHand(temp, index);
+	}
+
+	public static void drawTable(Card[] table, Profile[] player, Card[] deck) {
+
+	}
+
+	public static void runGame(Profile[] players, Card[] deck, Scanner input) {//TODO - Create gameplay loop
 		Card[] table = new Card[5];
 		int ante = 10;
-		int call;
-		int activePlayer;
+		int prevBet = 0;
+		int bet = 0;
 		int participants = 0;
+		int action = 0;
+		int callCounter = 0;
 		boolean[] occupied = new boolean[6];
 		for (int i = 0; i < players.length; i++) {
 			occupied[i] = players[i] != null;
 			participants++;
+			if (occupied[i]) {
+				players[i].setBalance(players[i].getBalance() - ante);
+				drawHand(players[i], deck, 0);
+				drawHand(players[i], deck, 1);
+			}
 		}
-
-		int[] balance = new int[6];
-		try {
-			for (int i = 0; i < players.length; i++) {
-				if (occupied[i]) {
-					assert players[i] != null;
-					balance[i] = players[i].getBalance();
+		int activePlayer = 0;
+		while (callCounter != participants) {
+			if (activePlayer >= 6){
+				activePlayer = 0;
+			}
+			if (occupied[activePlayer]) {
+				printCards(players, table, activePlayer);
+				if(players[activePlayer] != null){
+					action = chooseAction(players, bet, activePlayer, input); //TODO - FIX the null pointer. Seats/Table ends up resetting as well.
+				} else {
+					System.out.println("Finish in time to delete this error message for good. pls.");
+				}
+				if (action == -1) { // fold
+					participants--;
+					occupied[activePlayer] = false;
+				}else if (action > 0){ // bet
+					callCounter = 1;
+				} else if (action == 0) { // check or call
+					callCounter++;
 				}
 			}
-		} catch (NullPointerException e) {
-			System.out.println("Null pointer");
+			activePlayer++;
 		}
-
-		while (participants > 1) {
-			printCards(players, table, hands);
-			chooseAction();
-
-
-		}
-
 
 	}
-	//TODO - Subtract from true balance at end of method
-	public static int chooseAction(Profile[] players, int bet, int activePlayer) {
+
+	//TODO - Fix problem that occures upon check or fold
+	public static int chooseAction(Profile[] players, int prevBet, int activePlayer, Scanner input) {
 		int balance = players[activePlayer].getBalance();
+		String name = players[activePlayer].getName();
 		char action;
-		Scanner input = new Scanner(System.in);
 		int maxBet = 0;
 		for (int i = 0; i < players.length; i++) {
-			if (maxBet > players[i].getBalance()) {
-				maxBet = i;
+			if (players[i] != null) {
+				if (maxBet > players[i].getBalance()) {
+					maxBet = i;
+				}
 			}
 		}
-		boolean loop;
+		boolean loop = false;
 		do {
-			loop = false;
-			System.out.printf("(C) Call\t(R) Raise\t(X) Check\t(F) Fold%nChoose desired action: ");
-			action = Character.toLowerCase(input.next().charAt(0));
-			switch (action){
-				case 'c':
-					if (bet < balance){
-						players[activePlayer].setBalance(balance -= bet);
-						System.out.printf("Balance:\t%d%n", balance);
-						System.out.printf("You called for %d credits%n", bet);
-						return bet;
-					} else if (balance == bet){
-						players[activePlayer].setBalance(balance -= bet);
-						System.out.printf("Balance:\t%d%n", balance);
-						System.out.printf("All In for %d credits", bet);
-						return bet;
-					} else {
+			try {
+				System.out.printf("Balance:\t%d%n(C) Call\t(R) Raise\t(X) Check\t(F) Fold%nChoose desired action: ", balance);
+				action = Character.toLowerCase(input.next().charAt(0));
+
+				switch (action) {
+					case 'c' -> {
+						if (prevBet < balance) {
+							players[activePlayer].setBalance(balance - prevBet);
+							System.out.printf("%s called for %d credits%n", name, prevBet);
+							return 0;
+						} else if (balance == prevBet) {
+							players[activePlayer].setBalance(0);
+							System.out.printf("%s is All In for %d credits%n", name, prevBet);
+							return 0;
+						} else {
+							System.out.printf("Unable to call due to insufficient funds%n%s was forced to fold", name);
+							return -1;
+						}
+					}
+					case 'r' -> {
+						System.out.print("Bet amount: ");
+						prevBet = input.nextInt();
+						if (prevBet > maxBet && prevBet <= balance) { // Balance insufficient and balance greater than max bet
+							loop = true;
+							System.out.printf("Raise over max betting amount%n");
+						} else if (prevBet <= maxBet && prevBet < balance) {
+							players[activePlayer].setBalance(balance - prevBet);
+							System.out.printf("%s raised to %d credits%n", name, prevBet);
+							return prevBet;
+						} else if (prevBet <= maxBet && prevBet == balance) {
+							players[activePlayer].setBalance(0);
+							System.out.printf("%s is All In for %d credits", name, prevBet);
+							return prevBet;
+						} else {
+							loop = true;
+							System.out.printf("Insufficient funds to raise %d units%n", prevBet);
+						}
+					}
+					case 'x' -> {
+						if (prevBet != 0 && prevBet != -1) { // Unable to call behavior
+							loop = true;
+							System.out.printf("Unable to call due to ongoing bet%n");
+						} else {
+							System.out.printf("%s checked%n", name);
+							return 0;
+						}
+					}
+					case 'f' -> {
+						System.out.printf("%s folded%n", name);
+						return -1;
+					}
+					default -> {
 						loop = true;
-						System.out.println("Unable to call due to insufficient funds");
+						System.out.printf("'%c' is not a valid option, try again%n", action);
 					}
-				case 'r':
-					System.out.print("Bet amount: ");
-					try {
-						bet = input.nextInt();
-					} catch (InputMismatchException e){
-						System.out.println("Input Mismatch");
-					}
-					if (bet > maxBet && bet <= balance) { // Balance insufficient and balance greater than max bet
-						loop = true;
-						System.out.printf("Raise over max bet");
-					} else if (){
-
-					}
-				case 'x':
-					if (bet != 0){ // Can't call behavior
-
-					} else {
-
-					}
-				case'f':
-
-				default:
-
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Input Mismatch");
+			} finally {
+				saveProfiles(players);
 			}
-
 		} while (loop);
-
+		return -1;
 	}
 
-	public static void printCards(Profile[] players, Card[] table, Hand[] hands){
-		for (int i = 0; i < 5; i++){
+	public static void printCards(Profile[] player, Card[] table, int activePlayer) {
+		for (int i = 0; i < 5; i++) {
 			if (table[i] != null) {
 				System.out.printf("%s\t", table[i]);
 			} else {
-				System.out.print("__\t");
+				System.out.print("--\t");
 			}
 		}
 		System.out.println();
-		for (int i = 0; i < 6; i++){
-			System.out.printf("%-20s:\t%s", players[i].getName(), hands[i]);
+		for (int i = 0; i < 6; i++) {
+
+			if (i == activePlayer && player[i] != null) {
+				System.out.printf("%-15s:\t%s%n", player[i].getName(), player[i].handToString());
+			} else if (player[i] != null){
+				System.out.printf("%-15s:\t--   --%n", player[i].getName());
+			} else {
+				System.out.printf("%-15s%n", "Empty Seat");
+			}
 		}
 		System.out.println();
 	}

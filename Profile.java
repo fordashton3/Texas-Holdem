@@ -1,9 +1,13 @@
+@SuppressWarnings("unused")
 public class Profile {
 	private String name;
 	private int balance;
 	private int wins;
 	private int games;
 	private boolean save;
+	private Card[] hand;
+	private int cardOne;
+	private int cardTwo;
 	private double ratio;
 
 
@@ -13,7 +17,8 @@ public class Profile {
 		this.wins = wins;
 		this.games = games;
 		this.save = save;
-		this.ratio = wins/games;
+		this.hand = new Card[7];
+		this.ratio = (double) wins / games;
 	}
 
 	public String getName() {
@@ -34,6 +39,14 @@ public class Profile {
 
 	public boolean isSave() {
 		return save;
+	}
+
+	public Card[] getHand() {
+		return hand;
+	}
+
+	public Card getCard(int index) {
+		return hand[index];
 	}
 
 	public double getRatio() {
@@ -58,6 +71,14 @@ public class Profile {
 
 	public void setSave(boolean save) {
 		this.save = save;
+	}
+
+	public void setHand(Card deck, int index) {
+		this.hand[index] = deck;
+	}
+
+	public String handToString() {
+		return String.format("%s  %s", hand[0].toString(), hand[1].toString());
 	}
 
 	public String toString() {

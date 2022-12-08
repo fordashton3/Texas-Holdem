@@ -21,16 +21,16 @@ public class Card {
 		return value;
 	}
 
-	public void setRank(String rank) {
-		this.rank = rank;
+	public void setValue(int value) {
+		this.value = value;
 	}
 
 	public void setSuit(char suit) {
 		this.suit = suit;
 	}
 
-	public void setValue(int value) {
-		this.value = value;
+	public void setRank(String rank) {
+		this.rank = rank;
 	}
 
 	public String toString(){
