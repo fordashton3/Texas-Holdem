@@ -16,7 +16,7 @@ public class Final {
 		initDeck(deck);
 		shuffle(deck);
 		runGame(players, deck, input);
-
+		saveProfiles(players);
 //TODO- Possibly implement globablly the ability for the program to continue even if something wrong happens.(unless critical)
 	}
 
@@ -117,6 +117,7 @@ public class Final {
 	}
 
 	public static void runMenu(Profile[] players, Scanner input) {
+		input.reset();// TODO - RID OF ME
 		int menuInput;
 		System.out.printf("1. Start game%n2. Quit to Desktop%n");
 		try {
@@ -396,6 +397,7 @@ public class Final {
 	public static void runGame(Profile[] players, Card[] deck, Scanner input) { //TODO - Create gameplay loop
 		Card[] table = new Card[5];
 		int pot = 0;
+		int ante = 10;
 		int[] participants = new int[]{0};
 		boolean[] occupied = new boolean[6];
 		for (int i = 0; i < players.length; i++) {
@@ -417,8 +419,13 @@ public class Final {
 		}
 		// TODO - Diagnose past this point
 		int bestPlayer = 0;
-		if (participants[0] < 2) {
-			for (int i = 0; i < players.length; i++) {
+		boolean push = false;
+		boolean[] pushers = new boolean[6];
+		if (participants[0] != 1) {
+			for (int i = 1; i < players.length; i++) {
+				if (i == bestPlayer){
+					i++;
+				}
 				if (occupied[i] && getScore(players[i].getHand()) > getScore(players[bestPlayer].getHand())) {
 					bestPlayer = i;
 					push = false;
@@ -583,14 +590,8 @@ public class Final {
 	public static int getScore(Card[] hand) { //TODO - Come back to and make sure it SORTS
 		int score = 0;
 		Card[] dupHand = new Card[7];
-		for (int i = 0; i < hand.length; i++) {
-			dupHand[i] = hand[i];
-		}
-		Arrays.sort(dupHand);
-		//selectionSort(dupHand);
-		for (int i = 0; i < hand.length; i++) {
-			System.out.printf("%s  ", dupHand);
-		}
+		System.arraycopy(hand, 0, dupHand, 0, hand.length);
+		selectionSort(dupHand);
 		if (isRoyalFlush(dupHand) != null) {
 			score = rankToScore(isRoyalFlush(dupHand)) + 200;
 		} else if (isStraightFlush(dupHand) != null) {
