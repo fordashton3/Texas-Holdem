@@ -408,22 +408,47 @@ public class Final {
 				players[i].setHand(draw(deck), 1);
 			}
 		}
-		pot = runRound(players, table, occupied, participants, input);
+		pot += runRound(players, table, occupied, participants, input);
 		for (int i = 0; i < 5; i++) {
 			drawTable(table, players, deck, i);
 			if (participants[0] > 1 && i > 1) {
-				pot = runRound(players, table, occupied, participants, input);
+				pot += runRound(players, table, occupied, participants, input);
 			}
 		}
+		// TODO - Diagnose past this point
 		int bestPlayer = 0;
 		if (participants[0] < 2) {
 			for (int i = 0; i < players.length; i++) {
 				if (occupied[i] && getScore(players[i].getHand()) > getScore(players[bestPlayer].getHand())) {
 					bestPlayer = i;
-				} else if (occupied[i] )
+					push = false;
+				} else if (occupied[i] && getScore(players[i].getHand()) == getScore(players[bestPlayer].getHand())){
+					pushers[i] = true;
+					push = true;
+				}
+			}
+			System.out.printf("Ash Score: %s%n",getScore(players[0].getHand()));
+			System.out.printf("Ed Score: %s%n",getScore(players[1].getHand()));
+			if (push){
+				int pushTotal = 0;
+				for (int i = 0; i < players.length; i++){
+					if (occupied[i] && pushers[i]){
+						pushTotal++;
+					}
+				}
+				pot /= pushTotal;
+				System.out.printf("It's a push, players split %d chips%n", pot);
+				for (int i = 0; i < players.length; i++){
+					if (occupied[i] && pushers[i]){
+						players[i].setBalance(players[i].getBalance() + pot);
+					}
+				}
+			} else {
+				System.out.printf("Congratulations %s! You won %d chips!%n", players[bestPlayer].getName(), pot);
+				players[bestPlayer].setBalance(players[bestPlayer].getBalance() + pot);
 			}
 		}
-		System.out.printf("Congratulations %s! You won %d chips!%n", players[bestPlayer].getName(), pot);
+
 	}
 
 	public static int runRound(Profile[] players, Card[] table, boolean[] occupied, int[] participants, Scanner input) {
@@ -586,9 +611,8 @@ public class Final {
 			score += rankToScore(isTwoPair(dupHand, 1));
 		} else if (isPair(dupHand) != null) {
 			score = rankToScore(isPair(dupHand)) + 20;
-		} else {
-			score = rankToScore(isHighCard(dupHand));
 		}
+		score += rankToScore(isHighCard(hand));
 		return score;
 	}
 
@@ -776,16 +800,12 @@ public class Final {
 	}
 
 	public static String isHighCard(Card[] hand) {
-		int maxIndex = 0;
-		for (int i = 0; i < hand.length; i++) {
-			if (hand[i].getValue() > hand[maxIndex].getValue()) {
-				if (hand[i].getValue() == 1) {
-					return String.format("%s", hand[i].getRank());
-				}
-				maxIndex = i;
-			}
+		if (rankToScore(hand[0].getRank()) > rankToScore(hand[1].getRank())){
+			return String.format(hand[0].getRank());
+		} else {
+			return String.format(hand[1].getRank());
 		}
-		return String.format(hand[maxIndex].getRank());
+
 	}
 
 	public static void selectionSort(Card[] arr) {
