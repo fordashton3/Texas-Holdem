@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.io.*;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -398,59 +399,61 @@ public class Final {
 		int[] participants = new int[]{0};
 		boolean[] occupied = new boolean[6];
 		for (int i = 0; i < players.length; i++) {
-			if (players[i] != null){
+			if (players[i] != null) {
 				occupied[i] = true;
 				participants[0]++;
 				players[i].setBalance(players[i].getBalance() - ante);
 				pot += ante;
-				players[i].setHand(draw(deck),0);
-				players[i].setHand(draw(deck),1);
+				players[i].setHand(draw(deck), 0);
+				players[i].setHand(draw(deck), 1);
 			}
 		}
 		pot = runRound(players, table, occupied, participants, input);
 		for (int i = 0; i < 5; i++) {
 			drawTable(table, players, deck, i);
-			if (participants[0] > 1 && i > 1){
+			if (participants[0] > 1 && i > 1) {
 				pot = runRound(players, table, occupied, participants, input);
 			}
 		}
 		int bestPlayer = 0;
-        for (int i = 0; i < players.length; i++) {
-            if (occupied[i] && getScore(players[i].getHand()) > bestPlayer) {
-                bestPlayer = i;
-            }
-        }
+		if (participants[0] < 2) {
+			for (int i = 0; i < players.length; i++) {
+				if (occupied[i] && getScore(players[i].getHand()) > getScore(players[bestPlayer].getHand())) {
+					bestPlayer = i;
+				} else if (occupied[i] )
+			}
+		}
 		System.out.printf("Congratulations %s! You won %d chips!%n", players[bestPlayer].getName(), pot);
 	}
 
 	public static int runRound(Profile[] players, Card[] table, boolean[] occupied, int[] participants, Scanner input) {
 		int pot = 0;
 		int callCounter = 0;
-			int action = 0;
-			int bet = 0;
+		int action = 0;
+		int bet = 0;
 
-			int activePlayer = 0;
-			while (callCounter != participants[0]) {
-				if (activePlayer >= 6) {
-					activePlayer = 0;
-				}
-				if (occupied[activePlayer]) {
-					printCards(players, table, activePlayer, participants[0], callCounter);
-					if (players[activePlayer] != null) {
-						action = chooseAction(players, bet, activePlayer, input);
-					}
-					if (action == -1) { // fold
-						participants[0]--;
-						occupied[activePlayer] = false;
-					} else if (action > 0) { // bet
-						callCounter = 1;
-						pot += action;
-					} else if (action == 0) { // check or call
-						callCounter++;
-					}
-				}
-				activePlayer++;
+		int activePlayer = 0;
+		while (callCounter != participants[0]) {
+			if (activePlayer >= 6) {
+				activePlayer = 0;
 			}
+			if (occupied[activePlayer]) {
+				printCards(players, table, activePlayer, participants[0], callCounter);
+				if (players[activePlayer] != null) {
+					action = chooseAction(players, bet, activePlayer, input);
+				}
+				if (action == -1) { // fold
+					participants[0]--;
+					occupied[activePlayer] = false;
+				} else if (action > 0) { // bet
+					callCounter = 1;
+					pot += action;
+				} else if (action == 0) { // check or call
+					callCounter++;
+				}
+			}
+			activePlayer++;
+		}
 		return pot;
 	}
 
@@ -547,23 +550,259 @@ public class Final {
 			} else if (player[i] != null) {
 				System.out.printf("%-10s:\t--   --%n", player[i].getName());
 			}
-
 		}
 		System.out.printf("People: %d\tCall Counter: %d%n", participants, callCounter);
 		System.out.println();
 	}
 
-	public static int getScore(Card[] hand){
-
+	public static int getScore(Card[] hand) { //TODO - Come back to and make sure it SORTS
+		int score = 0;
+		Card[] dupHand = new Card[7];
+		for (int i = 0; i < hand.length; i++) {
+			dupHand[i] = hand[i];
+		}
+		Arrays.sort(dupHand);
+		//selectionSort(dupHand);
+		for (int i = 0; i < hand.length; i++) {
+			System.out.printf("%s  ", dupHand);
+		}
+		if (isRoyalFlush(dupHand) != null) {
+			score = rankToScore(isRoyalFlush(dupHand)) + 200;
+		} else if (isStraightFlush(dupHand) != null) {
+			score = rankToScore(isStraightFlush(dupHand)) + 180;
+		} else if (isFourOfAKind(dupHand) != null) {
+			score = rankToScore(isFourOfAKind(dupHand)) + 160;
+		} else if (isFullHouse(dupHand, 0) != null && isFullHouse(dupHand, 1) != null) {
+			score = rankToScore(isFullHouse(dupHand, 0)) + 130;
+			score += rankToScore(isFullHouse(dupHand, 1));
+		} else if (isFlush(dupHand) != null) {
+			score = rankToScore(isFlush(dupHand)) + 110;
+		} else if (isStraight(dupHand) != null) {
+			score = rankToScore(isStraight(dupHand)) + 90;
+		} else if (isThreeOfAKind(dupHand) != null) {
+			score = rankToScore(isThreeOfAKind(dupHand)) + 70;
+		} else if (isTwoPair(dupHand, 0) != null || isTwoPair(dupHand, 1) != null) {
+			score = rankToScore(isTwoPair(dupHand, 0)) + 40;
+			score += rankToScore(isTwoPair(dupHand, 1));
+		} else if (isPair(dupHand) != null) {
+			score = rankToScore(isPair(dupHand)) + 20;
+		} else {
+			score = rankToScore(isHighCard(dupHand));
+		}
+		return score;
 	}
+
+	public static int rankToScore(String rank){
+		int score;
+		switch (rank){
+			case "A", "♥", "♦", "♣", "♠" -> score = 13;
+			case "K" -> score = 12;
+			case "Q" -> score = 11;
+			case "J" -> score = 10;
+			case "10" -> score = 9;
+			case "9" -> score = 8;
+			case "8" -> score = 7;
+			case "7" -> score = 6;
+			case "6" -> score = 5;
+			case "5" -> score = 4;
+			case "4" -> score = 3;
+			case "3" -> score = 2;
+			case "2" -> score = 1;
+			default -> score = 0;
+		}
+		return score;
+	}
+	public static String isRoyalFlush(Card[] hand) {
+		String compH = "10♥J♥Q♥K♥A♥";
+		String compD = "10♦J♦Q♦K♦A♦";
+		String compC = "10♣J♣Q♣K♣A♣";
+		String compS = "10♠J♠Q♠K♠A♠";
+		String handStr = String.format("%s%s%s%s%s", hand[2].getRank(), hand[3].getRank(), hand[4].getRank(), hand[5].getRank(), hand[6].getRank());
+		if (handStr.equals(compH)) {
+			return String.format("%c", '♥');
+		} else if (handStr.equals(compD)){
+			return String.format("%c", '♦');
+		} else if (handStr.equals(compC)){
+			return String.format("%c", '♣');
+		} else if (handStr.equals(compS)){
+			return String.format("%c", '♠');
+		} else {
+			return null;
+		}
+	}
+
+	public static String isStraightFlush(Card[] hand) {
+		if (isStraight(hand) != null && isFlush(hand) != null) {
+			for (int i = 4; i > 0; i--){
+				if (!hand[i].getRank().equals(hand[i - 1].getRank())){
+					return null;
+				}
+			}
+			return hand[3].getRank();
+		} else {
+			return null;
+		}
+	}
+
+	public static String isFourOfAKind(Card[] hand) {
+		int counter = 0;
+		int index = 0;
+		for (int i = 0; i < hand.length - 1; i++) {
+			for (int j = i + 1; j < hand.length; j++) {
+				if (hand[i] == hand[j]) {
+					counter++;
+					index = i;
+				}
+			}
+		}
+		if (counter == 4) {
+			return String.format(hand[index].getRank());
+		} else {
+			return null;
+		}
+	}
+
+	public static String isFullHouse(Card[] hand, int index) { // TODO - get back to this
+		String three = isThreeOfAKind(hand);
+		String pair = isPair(hand);
+		if (three == null || pair == null) {
+			return null;
+		} else if (three.contains(pair.substring(5, pair.length() - 1))) {
+			return null;
+		} else {
+			if (index == 0) {
+				return three.substring(13, three.length() - 1);
+			}else {
+				return pair.substring(5, pair.length() - 1);
+			}
+		}
+	}
+
+	public static String isFlush(Card[] hand) {
+		short hearts = 0;
+		short diamonds = 0;
+		short clubs = 0;
+		short spades = 0;
+		for (Card card : hand) {
+			try {
+				switch (card.getSuit()) {
+					case '♥' -> hearts++;
+					case '♦' -> diamonds++;
+					case '♣' -> clubs++;
+					case '♠' -> spades++;
+					default -> throw new Exception("Card does not have suit or is null");
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			if (hearts > 4) {
+				return "♥";
+			} else if (diamonds > 4) {
+				return "♦";
+			} else if (clubs > 4) {
+				return "♣";
+			} else if (spades > 4) {
+				return "♠";
+			}
+		}
+		return null;
+	}
+
+	public static String isStraight(Card[] hand) {
+		String compare = "A2345678910JQKA";
+		String possibility1 = String.format("%s%s%s%s%s", hand[0].getRank(), hand[1].getRank(), hand[2].getRank(), hand[3].getRank(), hand[4].getRank());
+		String possibility2 = String.format("%s%s%s%s%s", hand[1].getRank(), hand[2].getRank(), hand[3].getRank(), hand[4].getRank(), hand[5].getRank());
+		String possibility3 = String.format("%s%s%s%s%s", hand[2].getRank(), hand[3].getRank(), hand[4].getRank(), hand[5].getRank(), hand[6].getRank());
+		if (compare.contains(possibility1)) {
+			return String.format(hand[4].getRank());
+		} else if (compare.contains(possibility2)) {
+			return String.format(hand[5].getRank());
+		} else if (compare.contains(possibility3)) {
+			return String.format(hand[6].getRank());
+		}
+		return null;
+	}
+
+	public static String isThreeOfAKind(Card[] hand) {
+		String pairValue = "0";
+		int match = 0;
+		for (int i = hand.length - 1; i > 0; i--) {
+			if (hand[i] == hand[i - 1]) {
+				pairValue = hand[i].getRank();
+				match = i;
+			}
+		}
+		for (int i = hand.length - 1; i > 0; i--) {
+			if (hand[i] == hand[i - 1] && hand[i].getRank().equals(pairValue) && (hand[i] != hand[match] || hand[i + 1] != hand[match])) {
+				return String.format(hand[i].getRank());
+			}
+		}
+		return null;
+	}
+
+	public static String isTwoPair(Card[] hand, int absIndex) {
+		String[] pairs = new String[2];
+		int pairValue = 0;
+		int index = 0;
+		for (int i = hand.length - 1; i > 0; i--) {
+			if (hand[i] == hand[i - 1]) {
+				pairValue = hand[i].getValue();
+				index = i;
+			}
+		}
+		for (int i = hand.length - 1; i > 0; i--) {
+			if (hand[i] == hand[i - 1] && hand[i].getValue() != pairValue) {
+				if (hand[i].getValue() > pairValue) {
+					pairs[0] = hand[i].getRank();
+					pairs[1] = hand[index].getRank();
+					return pairs[absIndex];
+				} else {
+					pairs[0] = hand[index].getRank();
+					pairs[1] = hand[i].getRank();
+					return pairs[absIndex];
+				}
+			}
+		}
+		return null;
+	}
+
+	public static String isPair(Card[] hand) {
+		for (int i = hand.length - 1; i > 0; i--) {
+			if (hand[i] == hand[i - 1]) {
+				return String.format("%s", hand[i].getRank());
+			}
+		}
+		return null;
+	}
+
+	public static String isHighCard(Card[] hand) {
+		int maxIndex = 0;
+		for (int i = 0; i < hand.length; i++) {
+			if (hand[i].getValue() > hand[maxIndex].getValue()) {
+				if (hand[i].getValue() == 1) {
+					return String.format("%s", hand[i].getRank());
+				}
+				maxIndex = i;
+			}
+		}
+		return String.format(hand[maxIndex].getRank());
+	}
+
+	public static void selectionSort(Card[] arr) {
+		for (int i = 0; i < arr.length; i++) {
+			int minIndex = i;
+
+			for (int j = i + 1; j < arr.length; j++) {
+				if (arr[j].getValue() < arr[minIndex].getValue()) {
+					minIndex = j;
+				}
+			}
+			if (i != minIndex) {
+				Card temp = arr[i];
+				arr[i] = arr[minIndex];
+				arr[minIndex] = temp;
+			}
+		}
+	}
+
 }
-
-/*
-1. Ashton
-2. Edward
-3.
-4. Guest1
-5. Guest2
-6.
-
- */
