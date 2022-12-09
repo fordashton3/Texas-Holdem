@@ -4,16 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fc10771-aab8-4e36-bd06-b8481b63b65b" name="Changes" comment="Pre Scoring">
+    <list default="true" id="4fc10771-aab8-4e36-bd06-b8481b63b65b" name="Changes" comment="Stable Build">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Final.java" beforeDir="false" afterPath="$PROJECT_DIR$/Final.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Texas Holdem/Final.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Texas Holdem/Final.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Texas Holdem/profiles/Ashton" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Texas Holdem/profiles/Ashton" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Texas Holdem/profiles/Edward" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Texas Holdem/profiles/Edward" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/profiles/Ashton" beforeDir="false" afterPath="$PROJECT_DIR$/profiles/Ashton" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/profiles/Edward" beforeDir="false" afterPath="$PROJECT_DIR$/profiles/Edward" afterDir="false" />
     </list>
-    <list id="cb91531e-5a5f-4ab4-ba5e-49825b43499a" name="Changes by Edward" comment="Changes by Edward">
+    <list id="cb91531e-5a5f-4ab4-ba5e-49825b43499a" name="Changes by Edward" comment="Stable by Edward">
       <change beforePath="$PROJECT_DIR$/Final.java" beforeDir="false" afterPath="$PROJECT_DIR$/Final.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,20 +29,54 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/Final.java">
       <ranges>
-        <range start1="18" end1="19" start2="18" end2="19" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
-        <range start1="119" end1="119" start2="119" end2="120" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
-        <range start1="398" end1="398" start2="399" end2="400" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
-        <range start1="410" end1="411" start2="412" end2="413" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="414" end1="415" start2="416" end2="417" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="417" end1="417" start2="419" end2="420" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="418" end1="420" start2="421" end2="428" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
-        <range start1="422" end1="423" start2="430" end2="435" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="424" end1="424" start2="436" end2="456" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="425" end1="426" start2="457" end2="458" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="560" end1="568" start2="592" end2="594" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
-        <range start1="588" end1="590" start2="614" end2="614" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="591" end1="591" start2="615" end2="616" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
-        <range start1="778" end1="788" start2="803" end2="809" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="0" end1="1" start2="0" end2="0" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="2" end1="3" start2="1" end2="1" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="14" end1="20" start2="12" end2="17" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="119" end1="120" start2="116" end2="117" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
+        <range start1="128" end1="128" start2="125" end2="126" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
+        <range start1="138" end1="139" start2="136" end2="137" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
+        <range start1="163" end1="163" start2="161" end2="162" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
+        <range start1="202" end1="203" start2="201" end2="201" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
+        <range start1="214" end1="214" start2="212" end2="213" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
+        <range start1="256" end1="256" start2="255" end2="256" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
+        <range start1="274" end1="274" start2="274" end2="275" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
+        <range start1="306" end1="306" start2="307" end2="308" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
+        <range start1="361" end1="361" start2="363" end2="364" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
+        <range start1="398" end1="398" start2="401" end2="403" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="419" end1="420" start2="424" end2="425" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="423" end1="423" start2="428" end2="435" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="425" end1="426" start2="437" end2="438" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="428" end1="429" start2="440" end2="441" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="431" end1="432" start2="443" end2="444" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="436" end1="439" start2="448" end2="451" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="440" end1="442" start2="452" end2="454" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="447" end1="449" start2="459" end2="461" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="589" end1="591" start2="601" end2="603" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="595" end1="596" start2="607" end2="608" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="597" end1="598" start2="609" end2="610" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="599" end1="600" start2="611" end2="612" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="601" end1="603" start2="613" end2="615" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="604" end1="605" start2="616" end2="617" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="606" end1="607" start2="618" end2="619" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="608" end1="609" start2="620" end2="621" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="610" end1="612" start2="622" end2="624" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="613" end1="614" start2="625" end2="628" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="615" end1="616" start2="629" end2="629" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="619" end1="620" start2="632" end2="633" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="621" end1="622" start2="634" end2="635" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="639" end1="639" start2="652" end2="653" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="640" end1="645" start2="654" end2="659" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="647" end1="648" start2="661" end2="662" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="649" end1="650" start2="663" end2="664" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="651" end1="652" start2="665" end2="666" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="660" end1="662" start2="674" end2="676" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="683" end1="684" start2="697" end2="698" changelist="cb91531e-5a5f-4ab4-ba5e-49825b43499a" />
+        <range start1="699" end1="700" start2="713" end2="714" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="769" end1="770" start2="783" end2="784" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="772" end1="774" start2="786" end2="788" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="778" end1="780" start2="792" end2="794" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="795" end1="797" start2="809" end2="811" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
+        <range start1="803" end1="804" start2="817" end2="818" changelist="4fc10771-aab8-4e36-bd06-b8481b63b65b" />
       </ranges>
     </file>
   </component>
@@ -72,7 +104,7 @@
     "TODO_SCOPE": "All Places",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "last_opened_file_path": "C:/Users/forda/OneDrive/Documents/Java Code/Projects/Texas Holdem",
-    "settings.editor.selected.configurable": "debugger.dataViews"
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie"
   }
 }]]></component>
   <component name="RunManager">
@@ -356,7 +388,21 @@
       <option name="project" value="LOCAL" />
       <updated>1670555882090</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Stable Build">
+      <created>1670560838882</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1670560838882</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Stable by Edward">
+      <created>1670560853764</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1670560853764</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -387,7 +433,9 @@
     <MESSAGE value="Changes by Edward" />
     <MESSAGE value="Homestretch" />
     <MESSAGE value="Pre Scoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pre Scoring" />
+    <MESSAGE value="Stable Build" />
+    <MESSAGE value="Stable by Edward" />
+    <option name="LAST_COMMIT_MESSAGE" value="Stable by Edward" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

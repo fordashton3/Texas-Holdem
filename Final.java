@@ -1,6 +1,4 @@
-import javax.swing.*;
 import java.io.*;
-import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -12,12 +10,10 @@ public class Final {
 		Card[] deck = new Card[52];
 		Profile[] players = new Profile[6];
 		runMenu(players, input);
-
-		initDeck(deck);
-		shuffle(deck);
-		runGame(players, deck, input);
-		saveProfiles(players);
-//TODO- Possibly implement globablly the ability for the program to continue even if something wrong happens.(unless critical)
+		do{
+			runGame(players, deck, input);
+			getSeatOrPlay(players, input);
+		} while (true);
 	}
 
 	public static void welcome() {
@@ -117,7 +113,7 @@ public class Final {
 	}
 
 	public static void runMenu(Profile[] players, Scanner input) {
-		input.reset();// TODO - RID OF ME
+		input.nextLine();
 		int menuInput;
 		System.out.printf("1. Start game%n2. Quit to Desktop%n");
 		try {
@@ -126,6 +122,7 @@ public class Final {
 				chooseSeat(players, input);
 			} else if (menuInput == 2) {
 				input.close();
+				saveProfiles(players);
 				System.exit(1);
 			} else {
 				throw new Exception("Invalid input");
@@ -136,7 +133,7 @@ public class Final {
 	}
 
 	public static void chooseSeat(Profile[] players, Scanner input) {
-
+		input.nextLine();
 		System.out.println("Which seat would you like to interact with?");
 		for (int i = 0; i < 6; i++) {
 			if (players[i] != null) {
@@ -161,6 +158,7 @@ public class Final {
 	}
 
 	public static void runUserSetup(int seat, Profile[] players, Scanner input) {
+		input.nextLine();
 		int menuInput;
 		if (players[seat] != null) {
 			System.out.printf("Seat %d is occupied by %s.%n\t1. Make %s leave the table%n\t2. Return to Menu%n",
@@ -200,7 +198,6 @@ public class Final {
 	}
 
 	public static boolean isDuplicate(Profile[] players, String fileName) {
-
 		for (Profile player : players) {
 			if (player != null) {
 				if (player.getName().equalsIgnoreCase(fileName)) {
@@ -212,6 +209,7 @@ public class Final {
 	}
 
 	public static void chooseProfile(Profile[] players, int seat, Scanner input) { //TODO - Restrict duplicate profile selections
+		input.nextLine();
 		String[] filesNames;
 		try {
 			filesNames = fileList(players, true);
@@ -254,6 +252,7 @@ public class Final {
 	}
 
 	public static void runNewProfile(Profile[] players, int seat, Scanner input) {
+		input.nextLine();
 		int userInput;
 		System.out.printf("1. New user%n2. Sit as guest%n");
 		try {
@@ -272,6 +271,7 @@ public class Final {
 	}
 
 	public static void createProfile(Profile[] players, int seat, Scanner input) {
+		input.nextLine();
 		try {
 			String[] fileNames = fileList(players, false);
 			String username = null;
@@ -304,6 +304,7 @@ public class Final {
 	}
 
 	public static void createGuest(Profile[] players, int seat, Scanner input) { //TODO - Make sure to clean scanner Buffer between methods. IT BUILDS!!!!
+		input.nextLine();
 		try {
 			String[] fileNames = fileList(players, false);
 			String username = null;
@@ -359,6 +360,7 @@ public class Final {
 	}
 
 	public static void getSeatOrPlay(Profile[] players, Scanner input) {
+		input.nextLine();
 		int userInput;
 		System.out.printf("1. Seat Selection%n2. Play Poker!%n3. Exit to menu%n"); //TODO - On menu exit, clear seats.
 		try {
@@ -396,6 +398,8 @@ public class Final {
 
 	public static void runGame(Profile[] players, Card[] deck, Scanner input) { //TODO - Create gameplay loop
 		Card[] table = new Card[5];
+		initDeck(deck);
+		shuffle(deck);
 		int pot = 0;
 		int ante = 10;
 		int[] participants = new int[]{0};
@@ -417,36 +421,45 @@ public class Final {
 				pot += runRound(players, table, occupied, participants, input);
 			}
 		}
-		// TODO - Diagnose past this point
+
+		
+
 		int bestPlayer = 0;
 		boolean push = false;
 		boolean[] pushers = new boolean[6];
+		float[] scores = new float[6];
+		for (int i = 0; i < players.length; i++){
+			if (players[i] != null){
+				scores[i] = getScore(players[i].getHand());
+
+			}
+		}
 		if (participants[0] != 1) {
 			for (int i = 1; i < players.length; i++) {
-				if (i == bestPlayer){
+				if (i == bestPlayer) {
 					i++;
 				}
-				if (occupied[i] && getScore(players[i].getHand()) > getScore(players[bestPlayer].getHand())) {
+				if (occupied[i] && scores[i] > scores[bestPlayer]) {
 					bestPlayer = i;
 					push = false;
-				} else if (occupied[i] && getScore(players[i].getHand()) == getScore(players[bestPlayer].getHand())){
+				} else if (occupied[i] && scores[i] == scores[bestPlayer]) {
 					pushers[i] = true;
 					push = true;
 				}
 			}
-			System.out.printf("Ash Score: %s%n",getScore(players[0].getHand()));
-			System.out.printf("Ed Score: %s%n",getScore(players[1].getHand()));
-			if (push){
+			System.out.printf("Ash Score: %s%n", scores[0]);
+			System.out.printf("Ed Score: %s%n", scores[1]);
+			if (push) {
 				int pushTotal = 0;
-				for (int i = 0; i < players.length; i++){
-					if (occupied[i] && pushers[i]){
+				for (int i = 0; i < players.length; i++) {
+					if (occupied[i] && pushers[i]) {
 						pushTotal++;
 					}
 				}
 				pot /= pushTotal;
 				System.out.printf("It's a push, players split %d chips%n", pot);
-				for (int i = 0; i < players.length; i++){
-					if (occupied[i] && pushers[i]){
+				for (int i = 0; i < players.length; i++) {
+					if (occupied[i] && pushers[i]) {
 						players[i].setBalance(players[i].getBalance() + pot);
 					}
 				}
@@ -587,39 +600,40 @@ public class Final {
 		System.out.println();
 	}
 
-	public static int getScore(Card[] hand) { //TODO - Come back to and make sure it SORTS
-		int score = 0;
+	public static float getScore(Card[] hand) { //TODO - Come back to and make sure it SORTS
+		float score = 0;
 		Card[] dupHand = new Card[7];
 		System.arraycopy(hand, 0, dupHand, 0, hand.length);
 		selectionSort(dupHand);
 		if (isRoyalFlush(dupHand) != null) {
-			score = rankToScore(isRoyalFlush(dupHand)) + 200;
+			score += rankToScore(isRoyalFlush(dupHand)) + 200f;
 		} else if (isStraightFlush(dupHand) != null) {
-			score = rankToScore(isStraightFlush(dupHand)) + 180;
+			score += rankToScore(isStraightFlush(dupHand)) + 180f;
 		} else if (isFourOfAKind(dupHand) != null) {
-			score = rankToScore(isFourOfAKind(dupHand)) + 160;
+			score += rankToScore(isFourOfAKind(dupHand)) + 160f;
 		} else if (isFullHouse(dupHand, 0) != null && isFullHouse(dupHand, 1) != null) {
-			score = rankToScore(isFullHouse(dupHand, 0)) + 130;
-			score += rankToScore(isFullHouse(dupHand, 1));
+			score += rankToScore(isFullHouse(dupHand, 0)) + 130f;
+			score += (float)rankToScore(isFullHouse(dupHand, 1));
 		} else if (isFlush(dupHand) != null) {
-			score = rankToScore(isFlush(dupHand)) + 110;
+			score += rankToScore(isFlush(dupHand)) + 110f;
 		} else if (isStraight(dupHand) != null) {
-			score = rankToScore(isStraight(dupHand)) + 90;
+			score += rankToScore(isStraight(dupHand)) + 90f;
 		} else if (isThreeOfAKind(dupHand) != null) {
-			score = rankToScore(isThreeOfAKind(dupHand)) + 70;
+			score += rankToScore(isThreeOfAKind(dupHand)) + 70f;
 		} else if (isTwoPair(dupHand, 0) != null || isTwoPair(dupHand, 1) != null) {
-			score = rankToScore(isTwoPair(dupHand, 0)) + 40;
-			score += rankToScore(isTwoPair(dupHand, 1));
+			score += rankToScore(isTwoPair(dupHand, 0)) + 40f;
+			score += (float)rankToScore(isTwoPair(dupHand, 1));
 		} else if (isPair(dupHand) != null) {
-			score = rankToScore(isPair(dupHand)) + 20;
+			score = rankToScore(isPair(dupHand)) + 20f;
+		} else {
+			score += (float)rankToScore(isHighCard(hand));
 		}
-		score += rankToScore(isHighCard(hand));
 		return score;
 	}
 
-	public static int rankToScore(String rank){
+	public static int rankToScore(String rank) {
 		int score;
-		switch (rank){
+		switch (rank) {
 			case "A", "♥", "♦", "♣", "♠" -> score = 13;
 			case "K" -> score = 12;
 			case "Q" -> score = 11;
@@ -637,19 +651,20 @@ public class Final {
 		}
 		return score;
 	}
+
 	public static String isRoyalFlush(Card[] hand) {
-		String compH = "10♥J♥Q♥K♥A♥";
-		String compD = "10♦J♦Q♦K♦A♦";
-		String compC = "10♣J♣Q♣K♣A♣";
-		String compS = "10♠J♠Q♠K♠A♠";
-		String handStr = String.format("%s%s%s%s%s", hand[2].getRank(), hand[3].getRank(), hand[4].getRank(), hand[5].getRank(), hand[6].getRank());
+		String compH = "A♥10♥J♥Q♥K♥";
+		String compD = "A♦10♦J♦Q♦K♦";
+		String compC = "A♣10♣J♣Q♣K♣";
+		String compS = "A♠10♠J♠Q♠K♠";
+		String handStr = String.format("%s%s%s%s%s", hand[2].getRank() + hand[2].getSuit(), hand[3].getRank() + hand[3].getSuit(), hand[4].getRank() + hand[4].getSuit(), hand[5].getRank() + hand[5].getSuit() , hand[6].getRank()) + hand[6].getSuit();
 		if (handStr.equals(compH)) {
 			return String.format("%c", '♥');
-		} else if (handStr.equals(compD)){
+		} else if (handStr.equals(compD)) {
 			return String.format("%c", '♦');
-		} else if (handStr.equals(compC)){
+		} else if (handStr.equals(compC)) {
 			return String.format("%c", '♣');
-		} else if (handStr.equals(compS)){
+		} else if (handStr.equals(compS)) {
 			return String.format("%c", '♠');
 		} else {
 			return null;
@@ -658,8 +673,8 @@ public class Final {
 
 	public static String isStraightFlush(Card[] hand) {
 		if (isStraight(hand) != null && isFlush(hand) != null) {
-			for (int i = 4; i > 0; i--){
-				if (!hand[i].getRank().equals(hand[i - 1].getRank())){
+			for (int i = 4; i > 0; i--) {
+				if (!hand[i].getRank().equals(hand[i - 1].getRank())) {
 					return null;
 				}
 			}
@@ -681,7 +696,7 @@ public class Final {
 			}
 		}
 		if (counter == 4) {
-			return String.format(hand[index].getRank());
+			return String.format("%s", hand[index].getRank());
 		} else {
 			return null;
 		}
@@ -697,7 +712,7 @@ public class Final {
 		} else {
 			if (index == 0) {
 				return three.substring(13, three.length() - 1);
-			}else {
+			} else {
 				return pair.substring(5, pair.length() - 1);
 			}
 		}
@@ -767,17 +782,17 @@ public class Final {
 
 	public static String isTwoPair(Card[] hand, int absIndex) {
 		String[] pairs = new String[2];
-		int pairValue = 0;
+		String pairRank = null;
 		int index = 0;
 		for (int i = hand.length - 1; i > 0; i--) {
-			if (hand[i] == hand[i - 1]) {
-				pairValue = hand[i].getValue();
+			if (hand[i].getRank().equals(hand[i-1].getRank())) {
+				pairRank = hand[i].getRank();
 				index = i;
 			}
 		}
 		for (int i = hand.length - 1; i > 0; i--) {
-			if (hand[i] == hand[i - 1] && hand[i].getValue() != pairValue) {
-				if (hand[i].getValue() > pairValue) {
+			if (hand[i].getRank().equals(hand[i - 1].getRank()) && !hand[i].getRank().equals(pairRank)) {
+				if (rankToScore(hand[i].getRank()) > rankToScore(pairRank)) {
 					pairs[0] = hand[i].getRank();
 					pairs[1] = hand[index].getRank();
 					return pairs[absIndex];
@@ -801,7 +816,7 @@ public class Final {
 	}
 
 	public static String isHighCard(Card[] hand) {
-		if (rankToScore(hand[0].getRank()) > rankToScore(hand[1].getRank())){
+		if (rankToScore(hand[0].getRank()) > rankToScore(hand[1].getRank())) {
 			return String.format(hand[0].getRank());
 		} else {
 			return String.format(hand[1].getRank());
